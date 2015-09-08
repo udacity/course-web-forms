@@ -23,6 +23,7 @@
       height: 350px;
       border: 0px;
       font-size: 150%;
+      overflow: scroll;
     }
     #mainlog {
       background: lightgreen; 
@@ -30,6 +31,7 @@
       font-size: 150%;
       font-style: bold;
       padding-left: 1em;
+      overflow: scroll;
     }
   </style>
 </head>
@@ -99,6 +101,7 @@
         var logMsg = event.timeStamp - this.startTime + " ms" + " <br>";
         var inDiv = document.getElementById("status");
         inDiv.innerHTML = inDiv.innerHTML + event.type + " - " + logMsg;
+        inDiv.scrollTop = inDiv.scrollHeight;
         console.log(event.type, logMsg);
       }
     }
