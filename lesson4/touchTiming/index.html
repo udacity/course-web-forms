@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Touch Example</title>
+
   <style>
     body {
       margin: 0px;
@@ -42,14 +43,14 @@
     <h3>Logger</h3>
     <div id="status">
       <ul>
-      <li>touchstart</li>
-      <li>touchmove</li>
-      <li>touchend</li>
+        <li>touchstart</li>
+        <li>touchmove</li>
+        <li>touchend</li>
       </ul>
     </div>
   </div>
 
-  <canvas id="canvas" width="300" height="300" ></canvas>
+  <canvas id="canvas" width="350p" height="400" ></canvas>
 
   <script>
     //
@@ -174,7 +175,7 @@
 
     window.onload = function() {
       if ( !isMobile.any()) {
-        document.getElementById("status").innerHTML = "<h3>For this demo to work you will need to run it from a mobile device or open Chrome DevTools.</h3>";
+        document.getElementById("status").innerHTML = "<h4>For this demo to work you will need to run it from a mobile device or open Chrome DevTools.</h4>";
       }
       ol();
     }
