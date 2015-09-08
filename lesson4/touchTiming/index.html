@@ -8,31 +8,42 @@
       margin: 0px;
       overflow: hidden;
     }
-
+    h1 {
+      padding-left: 2em;
+    }
+    h3 {
+      padding-top: 0.5em;
+    }
     #canvas {
       border: 1px solid black;
       background: yellow;
     }
     #status {
-      border: 1px solid black;
       background: lightgreen; 
-      padding-left: 2em;
+      padding-left: 1em;
       height: 300px;
       overflow: scroll;
-      font-size: 200%;
+      border: 0px;
+      font-size: 150%;
+    }
+    #mainlog {
+      background: lightgreen; 
+      font-size: 150%;
+      font-style: bold;
+      padding-left: 1em;
     }
   </style>
 </head>
 <body>
   <h1>Touch Example</h1>
-  
-  <h4>Logger</h4>
-  <div id="status">
+
+  <div id="mainlog">
+    <h3>Logger</h3>
+    <div id="status"></div>
   </div>
 
-  <canvas id="canvas" width="300" height="300" >
-  </canvas>
-  
+  <canvas id="canvas" width="300" height="300" ></canvas>
+
   <script>
     //
     // Party time
@@ -84,9 +95,9 @@
       this.startTime = event.timeStamp;
 
       this.log = function (event) {
-        var logMsg = event.timeStamp - this.startTime + " ms";
+        var logMsg = event.timeStamp - this.startTime + " ms" + " <br>";
         var inDiv = document.getElementById("status");
-        inDiv.innerHTML = inDiv.innerHTML + "<br> " + event.type + " - " + logMsg;
+        inDiv.innerHTML = inDiv.innerHTML + event.type + " - " + logMsg;
         console.log(event.type, logMsg);
       }
     }
