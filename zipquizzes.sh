@@ -2,6 +2,8 @@
 # Zips up all the quiz starts and solutions for the course and puts them in the zips directory.
 # Run from the course repo root
 
+rm -rf zips/*.zip;
+
 find . -type d -name start -or -name solution | while IFS= read -r pathname;
     do
         base=$(basename "$pathname");
