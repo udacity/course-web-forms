@@ -14,7 +14,7 @@
     .block {
       display: block;
     }
-    form {
+    .picker {
       font-size: 1.25em;
     }
   </style>
@@ -23,13 +23,13 @@
   <h1>Cam's Airlines ✈</h1>
   <p><em>Almost all</em> of our baggage is delivered to the right airport!</p>
 
-  <form>
-    <h3>Pick your Flight</h3>
-    <label class="block">Departure Airport
-      <input type="text" placeholder="eg. SFO">
+  <h3>Pick your Flight</h3>
+  <div class="picker">
+    <label class="block">Depart from:
+      <input type="text" name="depart-from" placeholder="eg. SFO" required>
     </label>
-    <label class="block">Arrival Airport
-      <input type="text" placeholder="eg. LHR">
+    <label class="block">Arrive at:
+      <input type="text" name="arrive-at" placeholder="eg. LHR" required>
     </label>
     <label class="block">Departure Day
       <select class="day" name="depart-day"></select>
@@ -50,7 +50,7 @@
       <select class="year" name="return-year"></select>
     </label>
     <input id="submit" type="submit">
-  </form>
+  </div>
   <script>
     /**
      * Creates an Array of DOM nodes that match the selector
