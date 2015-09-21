@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Numeric Inputs</title>
+  <style>
+    .block {
+      display: block;
+    }
+    code {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <label class="block">Number with <code>min="5"</code> and <code>value="6"</code>
+    <input type="number" min="5" value="6">
+  </label>
+  <label class="block">Number with <code>max="10"</code>
+    <input type="number" max="10">
+  </label>
+  <label class="block">Range with <code>min="5"</code>, <code>max="10"</code>
+    <input id="range" type="range" min="5" max="10">
+    Value: <span id="range-value"></span>
+  </label>
+  <label class="block">Number with <code>step="2"</code>
+    <input type="number" step="2">
+  </label>
+  <script>
+    var rangeInput = document.querySelector('#range');
+    var rangeDisplay = document.querySelector('#range-value');
+    
+    rangeDisplay.innerHTML = rangeInput.value;
+
+    rangeInput.onchange = function () {
+      rangeDisplay.innerHTML = this.value;
+    };
+  </script>
+</body>
+</html>
