@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flight Picker</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, sans-serif;
+      background-image: url("img/blue-sky.jpg");
+      background-position: center;
+    }
+    /* Sky image from http://www.freestockphotos.biz/stockphoto/8453 */
+    .block {
+      display: block;
+    }
+    form {
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cam's Airlines ✈</h1>
+  <p><em>Almost all</em> of our baggage is delivered to the right airport!</p>
+
+  <form>
+    <fieldset>
+      <h3>Pick your Flight</h3>
+      <label class="block">Departure Airport
+        <input type="text" placeholder="eg. SFO">
+      </label>
+      <label class="block">Arrival Airport
+        <input type="text" placeholder="eg. LHR">
+      </label>
+      <label class="block">Departure Day
+        <select class="day" name="depart-day"></select>
+      </label>
+      <label class="block">Departure Month
+        <select class="month" name="depart-month"></select>
+      </label>
+      <label class="block">Departure Year
+        <select class="year" name="depart-year"></select>
+      </label>
+      <label class="block">Return Day
+        <select class="day" name="return-day"></select>
+      </label>
+      <label class="block">Return Month
+        <select class="month" name="return-month"></select>
+      </label>
+      <label class="block">Return Year
+        <select class="year" name="return-year"></select>
+      </label>
+      <input id="submit" type="submit">
+    </fieldset>
+  </form>
+  <script>
+    /**
+     * Creates an Array of DOM nodes that match the selector
+     * @param selector {string} CSS selector - selector to match against
+     * @return {array} Array of DOM nodes
+     */
+    function getDomNodeArray(selector) {
+      var nodes = Array.prototype.slice.apply(document.querySelectorAll(selector));
+      return nodes;
+    }
+
+    var daySelectors = getDomNodeArray('.day');
+    daySelectors.forEach(function (selectElement) {
+      for (day = 1; day < 32; day++) {
+        var newOption = document.createElement('option');
+        if (day < 10) {
+          day = "0" + day;
+        } else {
+          day = day + "";
+        }
+        newOption.innerHTML = day;
+        selectElement.appendChild(newOption);
+      }
+    });
+
+    var monthSelectors = getDomNodeArray('.month');
+    monthSelectors.forEach(function (selectElement) {
+      for (month = 1; month < 13; month++) {
+        var newOption = document.createElement('option');
+        if (month < 10) {
+          month = "0" + month;
+        } else {
+          month = month + "";
+        }
+        newOption.innerHTML = month;
+        selectElement.appendChild(newOption);
+      }
+    });
+
+    var yearSelectors = getDomNodeArray('.year');
+    yearSelectors.forEach(function (selectElement) {
+      for (year = 2015; year < 2021; year++) {
+        var newOption = document.createElement('option');
+        newOption.innerHTML = year + "";
+        selectElement.appendChild(newOption);
+      }
+    });
+
+    document.querySelector('#submit').onclick = function() {
+      alert("Thanks for requesting a flight!");
+    };
+  </script>
+</body>
+</html>
