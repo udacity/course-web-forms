@@ -11,6 +11,10 @@
       background-position: center;
     }
     /* Sky image from http://www.freestockphotos.biz/stockphoto/8453 */
+    
+    label {
+      line-height: 1.5em;
+    }
     .block {
       display: block;
     }
@@ -26,11 +30,21 @@
   <h3>Pick your Flight</h3>
   <div class="picker">
     <label class="block">Depart from:
-      <input type="text" name="depart-from" placeholder="eg. SFO" required>
+      <input list="airports" name="depart-from" placeholder="SFO" required>
     </label>
     <label class="block">Arrive at:
-      <input type="text" name="arrive-at" placeholder="eg. LHR" required>
+      <input list="airports" name="arrive-at" placeholder="LHR" required>
     </label>
+    <datalist id="airports">
+      <option value="AMS">
+      <option value="BNA">
+      <option value="DEN">
+      <option value="LHR">
+      <option value="SEA">
+      <option value="SFO">
+      <option value="SJC">
+      <option value="TLV">
+    </datalist>
     <label class="block">Departure Day
       <select class="day" name="depart-day"></select>
     </label>
