@@ -9,20 +9,21 @@
   <h2>Try out <code>setCustomValidity()</code></h2>
   <p>Type <code>puppy</code> into the input. Check the <a href="view-source:http://udacity.github.io/course-web-forms/lesson2/setCustomValidity/index.html" target="_blank">page's source</a> to see how this form works.</p>
   <form action="passed.html">
-    <label>'puppy' input:
-      <input id="argument" type="text" placeholder="type here" autofocus>
+    <label><code><code>puppy</code></code> input:
+      <input id="puppy-input" type="text" placeholder="type here" autofocus>
     </label>
     <input id="submit" type="submit">
   </form>
+  <p><em>Note: this demo works best with Chrome or Firefox. Check <a href="http://afarkas.github.io/webshim/demos/#Forms-forms" target="_blank">Webshim for a polyfill</a>.</em></p>
   <script>
-    var arg = document.querySelector('#argument');
+    var puppyInput = document.querySelector('#puppy-input');
     var submit = document.querySelector('#submit');
 
     submit.onclick = function () {
-      if (arg.value !== "puppy") {
-        arg.setCustomValidity("The input should say 'puppy'. You typed: '" + arg.value + "'");
+      if (puppyInput.value !== "puppy") {
+        puppyInput.setCustomValidity("The input should say 'puppy'. You typed: '" + puppyInput.value + "'");
       } else {
-        arg.setCustomValidity("");
+        puppyInput.setCustomValidity("");
       }
     };
   </script>
