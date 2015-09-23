@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Bad Form - Event Creation</title>
+  <style>
+    body {
+      line-height: 1.5em;
+    }
+    .block {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Create an event!</h1>
+  <label class="block">Name of the event:<br>
+    <input type="text">
+  </label>
+
+  <label class="block">Event description:<br>
+    <input type="text">
+  </label>
+
+  <label class="block">Attendee email addresses:<br>
+    <input class="person" type="text">
+  </label>
+
+  <div class="people"></div>
+
+  <label class="block">Event day
+    <select class="day" type="text"></select>
+  </label>
+  <label class="block">Event month
+    <select class="month" type="text"></select>
+  </label>
+  <label class="block">Event year
+    <select class="year" type="text"></select>
+  </label>
+
+  <label class="block">Start time
+    <input type="time">
+  </label>
+  <label class="block">End time
+    <input type="time">
+  </label>
+
+  <button>Create event</button>
+  <script src="js/app.js"></script>
+</body>
+</html>
