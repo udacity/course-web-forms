@@ -69,6 +69,54 @@ person.onkeydown = function (evt) {
 function Validator () {
   this.getStartAndEndDatetimes();
   this.getGuests();
+  this.errorMessage = "Error: there are the following errors:<br>";
+};
+
+Validator.prototype.validate = function () {
+  var allGood = false;
+  var self = this;
+
+  var validations = [
+    {
+      method: this.hasTitle,
+      errorMessage: "Please include a title."
+    },
+    {
+      method: this.hasDescription,
+      errorMessage: "Please include a description."
+    },
+    {
+      method: this.doesEndAfterStart,
+      errorMessage: "Please include valid dates."
+    },
+    {
+      method: this.hasGuests,
+      errorMessage: "Please include guests."
+    },
+    {
+      method: this.allGuestEmailsAreReal,
+      errorMessage: "Please include valid email addresses."
+    }
+  ];
+
+  validations.forEach(function (val, index) {
+    if (val.method(self)) {
+      if (index === 0) {
+        allGood = true;
+      } else {
+        allGood = allGood && true;
+      }
+    } else {
+      allGood = allGood && false;
+      self.errorMessage = self.errorMessage + val.errorMessage + '<br>';
+    }
+  });
+  this.errorMessage = this.errorMessage.trim();
+  return allGood;
+};
+
+Validator.prototype.getGuests = function () {
+  this.guests = getDomNodeArray('.people>div');
 };
 
 Validator.prototype.getStartAndEndDatetimes = function () {
@@ -91,10 +139,6 @@ Validator.prototype.getStartAndEndDatetimes = function () {
   this.endDate = new Date(endYear, endMonth, endDay, endHour, endMin);
 };
 
-Validator.prototype.getGuests = function () {
-  this.guests = getDomNodeArray('.people>div');
-};
-
 Validator.prototype.doesEndAfterStart = function () {
   var endsLater = false;
   if (this.endDate - this.startDate > 0)  {
@@ -112,19 +156,28 @@ Validator.prototype.hasTitle = function () {
   return hasTitle;
 };
 
-Validator.prototype.hasGuests = function () {
+Validator.prototype.hasDescription = function () {
+  var hasDescription = false;
+  var description = document.querySelector('input.description').value;
+  if (description !== "") {
+    hasDescription = true;
+  }
+  return hasDescription;
+};
+
+Validator.prototype.hasGuests = function (self) {
   var hasGuests = false;
-  var numberOfGuests = this.guests.length;
+  var numberOfGuests = self.guests.length;
   if (numberOfGuests > 0) {
     hasGuests = true;
   }
   return hasGuests;
 };
 
-Validator.prototype.allGuestEmailsAreReal = function () {
+Validator.prototype.allGuestEmailsAreReal = function (self) {
   var areReal = false;
   var emailRegex = new RegExp("^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$");
-  this.guests.forEach(function (guest, index) {
+  self.guests.forEach(function (guest, index) {
     var result = emailRegex.exec(guest.value);
     if (result && result['index'] === 0) {
       if (index === 0) {
@@ -143,7 +196,13 @@ var createButton = document.querySelector('button#create');
 createButton.onclick = function () {
   // validate
   var validator = new Validator();
-  console.log(validator.allGuestEmailsAreReal());
+  var isValid = validator.validate();
 
-  // submit
+  if (!isValid) {
+    var errorMessage = document.querySelector('.error-message');
+    errorMessage.innerHTML = validator.errorMessage;
+    document.body.appendChild(errorMessage);
+  } else {
+    alert("Valid form. Thanks for submitting!");
+  }
 };

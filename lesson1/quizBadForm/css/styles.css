@@ -13,3 +13,7 @@ body {
     justify-content: space-between;
   }
 }
+
+.error-message {
+  color: red;
+}
