@@ -1,0 +1,15 @@
+body {
+  line-height: 1.5em;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.top {
+  text-align: center;
+}
+
+@media screen and (min-width: 755px) {
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}

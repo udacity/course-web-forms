@@ -4,49 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>A Bad Form - Event Creation</title>
-  <style>
-    body {
-      line-height: 1.5em;
-    }
-    .block {
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <h1>Create an event!</h1>
-  <label class="block">Name of the event:<br>
-    <input type="text">
-  </label>
 
-  <label class="block">Event description:<br>
-    <input type="text">
-  </label>
-
-  <label class="block">Attendee email addresses:<br>
-    <input class="person" type="text">
-  </label>
-
-  <div class="people"></div>
-
-  <label class="block">Event day
-    <select class="day" type="text"></select>
-  </label>
-  <label class="block">Event month
-    <select class="month" type="text"></select>
-  </label>
-  <label class="block">Event year
-    <select class="year" type="text"></select>
-  </label>
-
-  <label class="block">Start time
-    <input type="time">
-  </label>
-  <label class="block">End time
-    <input type="time">
-  </label>
-
-  <button>Create event</button>
+  <header class="top">
+    <h1 class="heading">Create an Event</h1>
+  </header>
+  <div class="main">
+    <section class="top-level">
+      <p>Name of the event:
+        <input type="text" class="title">
+      </p>
+      <div class="flex-container">
+        <div class="dates">
+          <div class="start-date">
+            <span>Start day
+              <select class="day" type="text"></select>
+            </span>
+            <span>Start month
+              <select class="month" type="text"></select>
+            </span>
+            <span>Start year
+              <select class="year" type="text"></select>
+            </span>
+          </div>
+          <div class="end-date">
+            <span>End day
+              <select class="day" type="text"></select>
+            </span>
+            <span>End month
+              <select class="month" type="text"></select>
+            </span>
+            <span>End year
+              <select class="year" type="text"></select>
+            </span>
+          </div>
+        </div>
+        <div class="times">
+          <span>Start time
+            <input class="start-time" type="time">
+          </span>
+          <span>End time
+            <input class="end-time" type="time">
+          </span>
+        </div>
+      </div>
+    </section>
+    <section class="details">
+      <p><em>Tell us more about your event!</em></p>
+      <p>Event description:<br>
+        <input type="text">
+      </p>
+      <p>Attendee email addresses:<br>
+        <input class="person" type="text">
+      </p>
+      <div class="people"></div>
+    </section>
+    <button id="create">Create event</button>
+  </div>
   <script src="js/app.js"></script>
 </body>
 </html>
