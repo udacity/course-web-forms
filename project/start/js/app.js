@@ -12,6 +12,9 @@ function getDomNodeArray(selector) {
   return nodes;
 }
 
+/*
+Generate all the options for the date entries
+ */
 var daySelectors = getDomNodeArray('.day');
 daySelectors.forEach(function (selectElement) {
   for (day = 1; day < 32; day++) {
@@ -52,9 +55,9 @@ yearSelectors.forEach(function (selectElement) {
 /*
 Adding guests
  */
-var person = getDomNodeArray('.person')[0];
-var people = getDomNodeArray('.people')[0];
-person.onkeydown = function (evt) {
+var newGuest = document.querySelector('input.new-guest');
+var people = document.querySelector('.attendees');
+newGuest.onkeydown = function (evt) {
   if (evt.keyIdentifier === "Enter") {
     var enteredPerson = document.createElement('div');
     var deletePerson = document.createElement('button');
@@ -64,14 +67,12 @@ person.onkeydown = function (evt) {
     deletePerson.onclick = function () {
       people.removeChild(this.parent);
     };
-    enteredPerson.innerHTML = person.value;
-    enteredPerson.value = person.value; // for easy access later
+    enteredPerson.innerHTML = newGuest.value;
+    enteredPerson.value = newGuest.value; // for easy access later
     enteredPerson.appendChild(deletePerson);
 
     people.appendChild(enteredPerson);
-    person.value = "";
-
-
+    newGuest.value = "";
   }
 };
 
@@ -130,16 +131,9 @@ function Model() {
     self.endMin = self.endMin || new Binding(null, self.endTime.value.split(':')[1]);
     self.endHour = self.endHour || new Binding(null, self.endTime.value.split(':')[0]);
 
-    self.startDate = self.startDate || new Binding();
-    self.endDate = self.endDate || new Binding();
+    self.date = self.date || new Binding();
 
-    self.startDate.value = new Date(self.startYear.value, self.startMonth.value, self.startDay.value, self.startHour.value, self.startMin.value);
-    self.endDate.value = new Date(self.endYear.value, self.endMonth.value, self.endDay.value, self.endHour.value, self.endMin.value);
-    
-    self.validDate = false;
-    if (self.endDate - self.startDate > 0) {
-      self.validDate = true;
-    }
+    self.date.value = new Date(self.startYear.value, self.startMonth.value, self.startDay.value);
   };
 
   self.updateCalculations();
@@ -170,20 +164,20 @@ model.title.oninput = function () {
 };
 
 model.description.oninput = function () {
-  var descriptionDisplay = document.querySelector('.detail-actual.what');
+  var descriptionDisplay = document.querySelector('.card-detail-actual.what');
   displayWithPlaceholder(model.description, descriptionDisplay, "Description");
 };
 
 model.location.oninput = function () {
-  var locationDisplay = document.querySelector('.detail-actual.where');
+  var locationDisplay = document.querySelector('.card-detail-actual.where');
   displayWithPlaceholder(model.location, locationDisplay, "Place");
 };
 
-var whenDisplay = document.querySelector('.detail-actual.when');
+var whenDisplay = document.querySelector('.card-detail-actual.when');
 getDomNodeArray('.input-datetime').forEach(function (elem) {
   elem.binding.oninput = function () {
-    var timeToDisplay = model.startDate.value + " - " + model.endDate.value;
     // TODO: a bit hacky
+    var timeToDisplay = model.date.value.toDateString() + " from " + model.startTime.value + " to " + model.endTime.value;
     displayWithPlaceholder({value: timeToDisplay}, whenDisplay, "Time");
   };
 });
@@ -192,31 +186,25 @@ function validate() {
   var self = this;
   var allGood = false;
   var errorMessage = "Please correct the following errors: <br>";
-  self.people = getDomNodeArray('.people>div');
+  var people = getDomNodeArray('.people>div');
   
   var validations = [
     {
       errorMessage: "Please include a title.",
-      method: function() {
+      validationMethod: function() {
         return model.title.hasChanged;
       }
     },
     {
       errorMessage: "Please include a description.",
-      method: function () {
+      validationMethod: function () {
         return model.description.hasChanged;
       }
     },
     {
-      errorMessage: "Please include valid dates.",
-      method: function() {
-        return model.validDate;
-      }
-    },
-    {
       errorMessage: "Please include guests.",
-      method: function () {
-        if (self.people.length > 0) {
+      validationMethod: function () {
+        if (people.length > 0) {
           return true;
         } else {
           return false;
@@ -225,10 +213,10 @@ function validate() {
     },
     {
       errorMessage: "Please include valid email addresses.",
-      method: function () {
+      validationMethod: function () {
         var areReal = false;
         var emailRegex = new RegExp("^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$");
-        self.people.forEach(function (guest, index) {
+        people.forEach(function (guest, index) {
           var result = emailRegex.exec(guest.value);
           if (result && result['index'] === 0) {
             if (index === 0) {
@@ -246,7 +234,7 @@ function validate() {
   ];
 
   validations.forEach(function (val, index) {
-    if (val.method(self)) {
+    if (val.validationMethod(self)) {
       if (index === 0) {
         allGood = true;
       } else {

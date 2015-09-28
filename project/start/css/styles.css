@@ -1,68 +1,151 @@
 body {
   line-height: 1.5em;
   font-family: 'Open Sans', sans-serif;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
-.flex-container {
-  display: flex;
-}
-
-.top {
+.heading {
   font-style: italic;
+  color: #aaa;
 }
 
-.main {
-  font-size: 1.2em;
-}
-
-.card-invite {
+.card {
   border: 1px solid;
 }
 
-.details {
-  margin-left: 5em;
-  margin-right: 5em;
+.card-details {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
-.detail {
-  flex-wrap: wrap;
+.card-detail {
+  display: flex;
   margin-bottom: 0.5em;
 }
 
-.detail:last-of-type {
+h2.title-display {
+  text-align: center;
+}
+
+.card-detail:last-of-type {
   margin-bottom: 1em;
 }
 
-.detail-category {
+.card-detail-category {
   width: 20%;
 }
 
-.detail-actual {
+.card-detail-actual {
   width: 80%;
   text-align: justify;
 }
 
-.detail-actual:not(.placeholder) {
+.card-detail-actual:not(.placeholder) {
   color: dodgerblue;
-}
-
-.detail-actual.when {
-}
-
-.title-display {
-  text-align: center;
 }
 
 .placeholder {
   color: grey;
 }
 
-@media screen and (min-width: 850px) {
-  .date-input-container {
+.inputs {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  
+  font-size: 1.2em;
+  line-height: 2em;
+}
+
+.input {
+  padding-left: 1em;
+}
+
+.input:nth-child(odd) {
+  background: #eee;
+}
+
+.split {
+  display: flex;
+}
+
+.input-type:after {
+  content: ":";
+}
+
+.input.split .input-type {
+  width: 30%;
+}
+
+@media screen and (min-width: 650px) {
+  .input {
+    /*max-width: 500px;*/
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card-detail {
+    display: block;
+  }
+}
+
+/*
+@media screen and (min-width: 851px) {
+  .datetime-entry {
     display: flex;
     justify-content: space-between;
   }
 }
+
+@media screen and (max-width: 850px) {
+  .start-date span, .end-date span, .times span {
+    display: inline-block;
+  }
+  
+  .start-date, .end-date {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .times {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .times span:last-of-type {
+    margin-left: 1em;
+  }
+}
+
+@media screen and (min-width: 651px) and (max-width: 850px) {
+  .date-inputs, .details-entry {
+    margin-left: 5em;
+    margin-right: 5em;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .date-inputs, .details-entry {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  .times {
+    justify-content: space-between;
+  }
+
+  .times span:last-of-type {
+    margin-left: 0em;
+  }
+}
+*/
+
 
 .error-message {
   color: red;

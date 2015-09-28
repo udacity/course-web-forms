@@ -8,75 +8,70 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
-  <header class="top">
+  <header>
     <p class="heading">Create an Event</p>
   </header>
-  <div class="main">
-    <div class="card-invite">
-      <h2 class="title-display placeholder">Untitled Event</h2>
-      <div class="details">
-        <div class="flex-container detail"><div class="detail-category">What?</div><div class="placeholder detail-actual what">Description</div></div>
-        <div class="flex-container detail"><div class="detail-category">Where?</div><div class="placeholder detail-actual where">Place</div></div>
-        <div class="flex-container detail"><div class="detail-category">When?</div><div class="placeholder detail-actual when">Time</div></div>
-      </div>
+  <section class="card">
+    <h2 class="title-display placeholder">Untitled Event</h2>
+    <div class="card-details">
+      <div class="card-detail"><div class="card-detail-category">What?</div><div class="placeholder card-detail-actual what">Description</div></div>
+      <div class="card-detail"><div class="card-detail-category">Where?</div><div class="placeholder card-detail-actual where">Place</div></div>
+      <div class="card-detail"><div class="card-detail-category">When?</div><div class="placeholder card-detail-actual when">Time</div></div>
+    </div>
+  </section>
+  <section class="inputs">
+    <div class="input split">
+      <div class="input-type">Event Name</div>
+      <div class="input-actual"><input type="text" class="model model-title title"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Event Type</div>
+      <div class="input-actual"><select type="text" class="model model-type type">
+        <option>Party</option>
+        <option>Meeting</option>
+        <option>Conference Talk</option>
+        <option>Sports Game</option>
+      </select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Start time</div>
+      <div class="input-actual"><input class="model model-startTime input-datetime start-time" type="time"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">End time</div>
+      <div class="input-actual"><input class="model model-endTime input-datetime end-time" type="time"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Day</div>
+      <div class="input-actual"><select class="model model-startDay input-datetime day" type="text"></select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Month</div>
+      <div class="input-actual"><select class="model model-startMonth input-datetime month" type="text"></select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Year</div>
+      <div class="input-actual"><select class="model model-startYear input-datetime year" type="text"></select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Event Description</div>
+      <div class="input-actual"><input type="text" class="model model-description"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Event location</div>
+      <div class="input-actual"><input type="text" class="model model-location"></div>
+    </div>
+    <div class="input full">
+      <div class="input-type">Attendee email addresses</div>
+      <div class="input-actual"><input class="new-guest" type="text"></div>
     </div>
     
-    <section class="top-level">
-      <p>Name of the event:
-        <input type="text" class="model model-title title">
-      </p>
-      <div class="date-input-container">
-        <div class="dates">
-          <div class="start-date">
-            <span>Start day
-              <select class="model model-startDay input-datetime day" type="text"></select>
-            </span>
-            <span>Start month
-              <select class="model model-startMonth input-datetime month" type="text"></select>
-            </span>
-            <span>Start year
-              <select class="model model-startYear input-datetime year" type="text"></select>
-            </span>
-          </div>
-          <div class="end-date">
-            <span>End day
-              <select class="model model-endDay input-datetime day" type="text"></select>
-            </span>
-            <span>End month
-              <select class="model model-endMonth input-datetime month" type="text"></select>
-            </span>
-            <span>End year
-              <select class="model model-endYear input-datetime year" type="text"></select>
-            </span>
-          </div>
-        </div>
-        <div class="times">
-          <span>Start time
-            <input class="model model-startTime input-datetime start-time" type="time">
-          </span>
-          <span>End time
-            <input class="model model-endTime input-datetime end-time" type="time">
-          </span>
-        </div>
-      </div>
-    </section>
-    <section class="details-entry">
-      <p><em>Tell us more about your event!</em></p>
-      <p>Event description:<br>
-        <input type="text" class="model model-description description">
-      </p>
-      <p>Event location:<br>
-        <input type="text" class="model model-location location">
-      </p>
-      <p>Attendee email addresses:<br>
-        <input class="person" type="text">
-      </p>
-      <div class="people"></div>
-    </section>
-    <button id="create">Create event</button>
-  </div>
-  <div class="error-message"></div>
+    <div class="attendees" style="margin-left: 1em;"></div>
+    
+    <button id="create" style="margin-left: 1em;">Create event</button>
+    <div class="error-message"></div>
+  
+  </section>
   <script src="js/app.js"></script>
 </body>
 </html>
