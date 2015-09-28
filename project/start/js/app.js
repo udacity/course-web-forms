@@ -1,3 +1,4 @@
+var APP = (function() {
 /**
  * Creates an Array of DOM nodes that match the selector
  * @param selector {string} CSS selector - selector to match against
@@ -5,6 +6,9 @@
  */
 function getDomNodeArray(selector) {
   var nodes = Array.prototype.slice.apply(document.querySelectorAll(selector));
+  if (!nodes) {
+    nodes = [];
+  }
   return nodes;
 }
 
@@ -66,94 +70,178 @@ person.onkeydown = function (evt) {
 
     people.appendChild(enteredPerson);
     person.value = "";
+
+
   }
+};
+
+/*
+class="model model-*" Refer to inputs by the name after class model-*
+ */
+function Model() {
+  var self = this;
+
+  function Binding(elem, value) {
+    elem = elem || null;
+    value = value || null;
+
+    this.elem = elem;
+    this.value = value;
+    this.hasChanged = false;
+    this.oninput = function() {};
+  }
+
+  // pulls values from elems of class="model model-*" to create Model's raw info and set up 1-way binding
+  getDomNodeArray('.model').forEach(function (elem) {
+    elem.classList.forEach(function (className) {
+      var possiblyMatch = className.match(/model\-/g);
+      if (possiblyMatch) {
+        // create the Model value
+        var name = className.slice(6);
+        var value = elem.value;
+
+        // set default values
+        if (name.indexOf("Month") > -1) {
+          value = value - 1;
+        } else if (name.indexOf("Time" > -1)) {
+          value = value || '00:00';
+        }
+
+        self[name] = self[name] || new Binding(elem, value);
+        elem.binding = elem.binding || self[name];
+
+        // bind data oninput
+        elem.oninput = function () {
+          self[name].hasChanged = true;
+          self[name] = self[name] || new Binding(elem, value);
+          self[name].value = elem.value;
+          self.updateCalculations();
+          
+          // for callbacks
+          self[name].oninput();
+        };
+      }
+    });
+  });
+
+  self.updateCalculations = function () {
+    self.startMin = self.startMin || new Binding(null, self.startTime.value.split(':')[1]);
+    self.startHour = self.startHour || new Binding(null, self.startTime.value.split(':')[0]);
+    self.endMin = self.endMin || new Binding(null, self.endTime.value.split(':')[1]);
+    self.endHour = self.endHour || new Binding(null, self.endTime.value.split(':')[0]);
+
+    self.startDate = self.startDate || new Binding();
+    self.endDate = self.endDate || new Binding();
+
+    self.startDate.value = new Date(self.startYear.value, self.startMonth.value, self.startDay.value, self.startHour.value, self.startMin.value);
+    self.endDate.value = new Date(self.endYear.value, self.endMonth.value, self.endDay.value, self.endHour.value, self.endMin.value);
+    
+    self.validDate = false;
+    if (self.endDate - self.startDate > 0) {
+      self.validDate = true;
+    }
+  };
+
+  self.updateCalculations();
 };
 
 /*
 To create a placeholder effect. Assumes that display element starts with 'placeholder' class
  */
-
-function displayWithPlaceholder (input, displayElem, placeholder) {
+function displayWithPlaceholder (inputBinding, displayElem, placeholder) {
   if (displayElem.classList.contains('placeholder')) {
     displayElem.classList.remove('placeholder');
-  }
-  if (input === "") {
-    input = placeholder;
+  };
+  if (inputBinding.value === "") {
+    inputBinding.value = placeholder;
+    // let the model know that input has gone back to default
+    inputBinding.hasChanged = false;
+
     displayElem.classList.add('placeholder');
   }
-  displayElem.innerHTML = input;
+  displayElem.innerHTML = inputBinding.value;
+};
+var model = new Model();
+
+// Update the view oninput
+model.title.oninput = function () {
+  var titleDisplay = document.querySelector('.title-display');
+  displayWithPlaceholder(model.title, titleDisplay, "Untitled Event");
 };
 
-function inputToDisplayWithPlaceholder(inputSelector, displaySelector, placeholder) {
-  var inputElem = document.querySelector(inputSelector);
-  var displayElem = document.querySelector(displaySelector);
-  placeholder = placeholder || "Placeholder";
-
-  inputElem.oninput = function () {
-    var currentInput = inputElem.value;
-
-    displayWithPlaceholder(currentInput, displayElem, placeholder);
-  };
+model.description.oninput = function () {
+  var descriptionDisplay = document.querySelector('.detail-actual.what');
+  displayWithPlaceholder(model.description, descriptionDisplay, "Description");
 };
 
-inputToDisplayWithPlaceholder('input.title', '.title-display', "Untitled Event");
-inputToDisplayWithPlaceholder('input.description', '.detail-actual.what', "Description");
-inputToDisplayWithPlaceholder('input.location', '.detail-actual.where', "Place");
+model.location.oninput = function () {
+  var locationDisplay = document.querySelector('.detail-actual.where');
+  displayWithPlaceholder(model.location, locationDisplay, "Place");
+};
 
-/*
-Render the times with placeholders
- */
 var whenDisplay = document.querySelector('.detail-actual.when');
-getDomNodeArray('.input-datetime').forEach(function (input) {
-  input.oninput = function () {
-    validator.getStartTime();
-    validator.getEndTime();
-
-    var timeToDisplay = validator.startDate + " - " + validator.endDate;
-
-    displayWithPlaceholder(timeToDisplay, whenDisplay, "Time");
+getDomNodeArray('.input-datetime').forEach(function (elem) {
+  elem.binding.oninput = function () {
+    var timeToDisplay = model.startDate.value + " - " + model.endDate.value;
+    // TODO: a bit hacky
+    displayWithPlaceholder({value: timeToDisplay}, whenDisplay, "Time");
   };
 });
 
-/*
-Validating all the inputs
- */
-function Validator () {
-  this.collectInfo();
-};
-
-Validator.prototype.collectInfo = function () {
-  this.getStartAndEndDatetimes();
-  this.getGuests();
-};
-
-Validator.prototype.validate = function () {
-  var allGood = false;
-  this.errorMessage = "Error: there are the following errors:<br>";
-  this.collectInfo();
-  
+function validate() {
   var self = this;
-
+  var allGood = false;
+  var errorMessage = "Please correct the following errors: <br>";
+  self.people = getDomNodeArray('.people>div');
+  
   var validations = [
     {
-      method: this.hasTitle,
-      errorMessage: "Please include a title."
+      errorMessage: "Please include a title.",
+      method: function() {
+        return model.title.hasChanged;
+      }
     },
     {
-      method: this.hasDescription,
-      errorMessage: "Please include a description."
+      errorMessage: "Please include a description.",
+      method: function () {
+        return model.description.hasChanged;
+      }
     },
     {
-      method: this.doesEndAfterStart,
-      errorMessage: "Please include valid dates."
+      errorMessage: "Please include valid dates.",
+      method: function() {
+        return model.validDate;
+      }
     },
     {
-      method: this.hasGuests,
-      errorMessage: "Please include guests."
+      errorMessage: "Please include guests.",
+      method: function () {
+        if (self.people.length > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     },
     {
-      method: this.allGuestEmailsAreReal,
-      errorMessage: "Please include valid email addresses."
+      errorMessage: "Please include valid email addresses.",
+      method: function () {
+        var areReal = false;
+        var emailRegex = new RegExp("^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$");
+        self.people.forEach(function (guest, index) {
+          var result = emailRegex.exec(guest.value);
+          if (result && result['index'] === 0) {
+            if (index === 0) {
+              areReal = true;
+            } else {
+              areReal = areReal && true;
+            }
+          } else {
+            areReal = areReal && false;
+          }
+        });
+        return areReal;
+      }
     }
   ];
 
@@ -166,109 +254,27 @@ Validator.prototype.validate = function () {
       }
     } else {
       allGood = allGood && false;
-      self.errorMessage = self.errorMessage + val.errorMessage + '<br>';
+      errorMessage = errorMessage + val.errorMessage + '<br>';
     }
   });
-  this.errorMessage = this.errorMessage.trim();
-  return allGood;
-};
-
-Validator.prototype.getGuests = function () {
-  this.guests = getDomNodeArray('.people>div');
-};
-
-Validator.prototype.getStartAndEndDatetimes = function () {
-  this.getStartTime();
-  this.getEndTime();
-};
-
-Validator.prototype.getStartTime = function () {
-  var startDay = document.querySelector('.start-date .day').value;
-  var startMonth = document.querySelector('.start-date .month').value - 1;
-  var startYear = document.querySelector('.start-date .year').value;
+  errorMessage = errorMessage.trim();
   
-  var startTime = document.querySelector('.start-time').value || '00:00';
-  var startMin = startTime.split(':')[1];
-  var startHour = startTime.split(':')[0];
-  
-  this.startDate = new Date(startYear, startMonth, startDay, startHour, startMin);
-};
-
-Validator.prototype.getEndTime = function () {
-  var endDay = document.querySelector('.end-date .day').value;
-  var endMonth = document.querySelector('.end-date .month').value - 1;
-  var endYear = document.querySelector('.end-date .year').value;
-  
-  var endTime = document.querySelector('.end-time').value || '00:00';
-  var endMin = endTime.split(':')[1];
-  var endHour = endTime.split(':')[0];
-
-  this.endDate = new Date(endYear, endMonth, endDay, endHour, endMin);
-};
-
-Validator.prototype.doesEndAfterStart = function (self) {
-  var endsLater = false;
-  if (self.endDate - self.startDate > 0) {
-    endsLater = true;
+  return {
+    isValid: allGood,
+    errorMessage: errorMessage
   }
-  return endsLater;
 };
-
-Validator.prototype.hasTitle = function () {
-  var hasTitle = false;
-  var title = document.querySelector('input.title').value;
-  if (title !== "") {
-    hasTitle = true;
-  }
-  return hasTitle;
-};
-
-Validator.prototype.hasDescription = function () {
-  var hasDescription = false;
-  var description = document.querySelector('input.description').value;
-  if (description !== "") {
-    hasDescription = true;
-  }
-  return hasDescription;
-};
-
-Validator.prototype.hasGuests = function (self) {
-  var hasGuests = false;
-  var numberOfGuests = self.guests.length;
-  if (numberOfGuests > 0) {
-    hasGuests = true;
-  }
-  return hasGuests;
-};
-
-Validator.prototype.allGuestEmailsAreReal = function (self) {
-  var areReal = false;
-  var emailRegex = new RegExp("^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$");
-  self.guests.forEach(function (guest, index) {
-    var result = emailRegex.exec(guest.value);
-    if (result && result['index'] === 0) {
-      if (index === 0) {
-        areReal = true;
-      } else {
-        areReal = areReal && true;
-      }
-    } else {
-      areReal = areReal && false;
-    }
-  });
-  return areReal;
-};
-
-var validator = new Validator();
 
 var createButton = document.querySelector('button#create');
 createButton.onclick = function () {
-  var isValid = validator.validate();
+  var validState = validate();
 
-  if (!isValid) {
+  if (!validState.isValid) {
     var errorMessage = document.querySelector('.error-message');
-    errorMessage.innerHTML = validator.errorMessage;
+    errorMessage.innerHTML = validState.errorMessage;
   } else {
     alert("Valid form. Thanks for submitting!");
   }
 };
+
+})();

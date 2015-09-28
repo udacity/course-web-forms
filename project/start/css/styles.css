@@ -42,6 +42,10 @@ body {
   text-align: justify;
 }
 
+.detail-actual:not(.placeholder) {
+  color: dodgerblue;
+}
+
 .detail-actual.when {
 }
 
