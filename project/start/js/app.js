@@ -45,6 +45,9 @@ yearSelectors.forEach(function (selectElement) {
   }
 });
 
+/*
+Adding guests
+ */
 var person = getDomNodeArray('.person')[0];
 var people = getDomNodeArray('.people')[0];
 person.onkeydown = function (evt) {
@@ -66,14 +69,69 @@ person.onkeydown = function (evt) {
   }
 };
 
+/*
+To create a placeholder effect. Assumes that display element starts with 'placeholder' class
+ */
+
+function displayWithPlaceholder (input, displayElem, placeholder) {
+  if (displayElem.classList.contains('placeholder')) {
+    displayElem.classList.remove('placeholder');
+  }
+  if (input === "") {
+    input = placeholder;
+    displayElem.classList.add('placeholder');
+  }
+  displayElem.innerHTML = input;
+};
+
+function inputToDisplayWithPlaceholder(inputSelector, displaySelector, placeholder) {
+  var inputElem = document.querySelector(inputSelector);
+  var displayElem = document.querySelector(displaySelector);
+  placeholder = placeholder || "Placeholder";
+
+  inputElem.oninput = function () {
+    var currentInput = inputElem.value;
+
+    displayWithPlaceholder(currentInput, displayElem, placeholder);
+  };
+};
+
+inputToDisplayWithPlaceholder('input.title', '.title-display', "Untitled Event");
+inputToDisplayWithPlaceholder('input.description', '.detail-actual.what', "Description");
+inputToDisplayWithPlaceholder('input.location', '.detail-actual.where', "Place");
+
+/*
+Render the times with placeholders
+ */
+var whenDisplay = document.querySelector('.detail-actual.when');
+getDomNodeArray('.input-datetime').forEach(function (input) {
+  input.oninput = function () {
+    validator.getStartTime();
+    validator.getEndTime();
+
+    var timeToDisplay = validator.startDate + " - " + validator.endDate;
+
+    displayWithPlaceholder(timeToDisplay, whenDisplay, "Time");
+  };
+});
+
+/*
+Validating all the inputs
+ */
 function Validator () {
+  this.collectInfo();
+};
+
+Validator.prototype.collectInfo = function () {
   this.getStartAndEndDatetimes();
   this.getGuests();
-  this.errorMessage = "Error: there are the following errors:<br>";
 };
 
 Validator.prototype.validate = function () {
   var allGood = false;
+  this.errorMessage = "Error: there are the following errors:<br>";
+  this.collectInfo();
+  
   var self = this;
 
   var validations = [
@@ -120,28 +178,37 @@ Validator.prototype.getGuests = function () {
 };
 
 Validator.prototype.getStartAndEndDatetimes = function () {
+  this.getStartTime();
+  this.getEndTime();
+};
+
+Validator.prototype.getStartTime = function () {
   var startDay = document.querySelector('.start-date .day').value;
   var startMonth = document.querySelector('.start-date .month').value - 1;
   var startYear = document.querySelector('.start-date .year').value;
-  var endDay = document.querySelector('.end-date .day').value;
-  var endMonth = document.querySelector('.end-date .month').value - 1;
-  var endYear = document.querySelector('.end-date .year').value;
   
   var startTime = document.querySelector('.start-time').value || '00:00';
   var startMin = startTime.split(':')[1];
   var startHour = startTime.split(':')[0];
+  
+  this.startDate = new Date(startYear, startMonth, startDay, startHour, startMin);
+};
 
+Validator.prototype.getEndTime = function () {
+  var endDay = document.querySelector('.end-date .day').value;
+  var endMonth = document.querySelector('.end-date .month').value - 1;
+  var endYear = document.querySelector('.end-date .year').value;
+  
   var endTime = document.querySelector('.end-time').value || '00:00';
   var endMin = endTime.split(':')[1];
   var endHour = endTime.split(':')[0];
 
-  this.startDate = new Date(startYear, startMonth, startDay, startHour, startMin);
   this.endDate = new Date(endYear, endMonth, endDay, endHour, endMin);
 };
 
-Validator.prototype.doesEndAfterStart = function () {
+Validator.prototype.doesEndAfterStart = function (self) {
   var endsLater = false;
-  if (this.endDate - this.startDate > 0)  {
+  if (self.endDate - self.startDate > 0) {
     endsLater = true;
   }
   return endsLater;
@@ -192,16 +259,15 @@ Validator.prototype.allGuestEmailsAreReal = function (self) {
   return areReal;
 };
 
+var validator = new Validator();
+
 var createButton = document.querySelector('button#create');
 createButton.onclick = function () {
-  // validate
-  var validator = new Validator();
   var isValid = validator.validate();
 
   if (!isValid) {
     var errorMessage = document.querySelector('.error-message');
     errorMessage.innerHTML = validator.errorMessage;
-    document.body.appendChild(errorMessage);
   } else {
     alert("Valid form. Thanks for submitting!");
   }

@@ -1,0 +1,65 @@
+body {
+  line-height: 1.5em;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.top {
+  font-style: italic;
+}
+
+.main {
+  font-size: 1.2em;
+}
+
+.card-invite {
+  border: 1px solid;
+}
+
+.details {
+  margin-left: 5em;
+  margin-right: 5em;
+}
+
+.detail {
+  flex-wrap: wrap;
+  margin-bottom: 0.5em;
+}
+
+.detail:last-of-type {
+  margin-bottom: 1em;
+}
+
+.detail-category {
+  width: 20%;
+}
+
+.detail-actual {
+  width: 80%;
+  text-align: justify;
+}
+
+.detail-actual.when {
+}
+
+.title-display {
+  text-align: center;
+}
+
+.placeholder {
+  color: grey;
+}
+
+@media screen and (min-width: 850px) {
+  .date-input-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.error-message {
+  color: red;
+}

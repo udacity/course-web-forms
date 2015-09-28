@@ -3,59 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Bad Form - Event Creation</title>
+  <title>Event Creation - A Bad Form</title>
   <link rel="stylesheet" href="css/styles.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
   <header class="top">
-    <h1 class="heading">Create an Event</h1>
+    <p class="heading">Create an Event</p>
   </header>
   <div class="main">
+    <div class="card-invite">
+      <h2 class="title-display placeholder">Untitled Event</h2>
+      <div class="details">
+        <div class="flex-container detail"><div class="detail-category">What?</div><div class="placeholder detail-actual what">Description</div></div>
+        <div class="flex-container detail"><div class="detail-category">Where?</div><div class="placeholder detail-actual where">Place</div></div>
+        <div class="flex-container detail"><div class="detail-category">When?</div><div class="placeholder detail-actual when">Time</div></div>
+      </div>
+    </div>
+    
     <section class="top-level">
       <p>Name of the event:
         <input type="text" class="title">
       </p>
-      <div class="flex-container">
+      <div class="date-input-container">
         <div class="dates">
           <div class="start-date">
             <span>Start day
-              <select class="day" type="text"></select>
+              <select class="input-datetime day" type="text"></select>
             </span>
             <span>Start month
-              <select class="month" type="text"></select>
+              <select class="input-datetime month" type="text"></select>
             </span>
             <span>Start year
-              <select class="year" type="text"></select>
+              <select class="input-datetime year" type="text"></select>
             </span>
           </div>
           <div class="end-date">
             <span>End day
-              <select class="day" type="text"></select>
+              <select class="input-datetime day" type="text"></select>
             </span>
             <span>End month
-              <select class="month" type="text"></select>
+              <select class="input-datetime month" type="text"></select>
             </span>
             <span>End year
-              <select class="year" type="text"></select>
+              <select class="input-datetime year" type="text"></select>
             </span>
           </div>
         </div>
         <div class="times">
           <span>Start time
-            <input class="start-time" type="time">
+            <input class="input-datetime start-time" type="time">
           </span>
           <span>End time
-            <input class="end-time" type="time">
+            <input class="input-datetime end-time" type="time">
           </span>
         </div>
       </div>
     </section>
-    <section class="details">
+    <section class="details-entry">
       <p><em>Tell us more about your event!</em></p>
       <p>Event description:<br>
         <input type="text" class="description">
+      </p>
+      <p>Event location:<br>
+        <input type="text" class="location">
       </p>
       <p>Attendee email addresses:<br>
         <input class="person" type="text">
