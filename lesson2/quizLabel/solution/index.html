@@ -7,7 +7,8 @@
 </head>
 <body>
   <form action="#">
-    <input type="checkbox"> Same as billing address
+    <!-- Using "for" (even with nested content) ensures that screen readers connect the label with the control -->
+    <label for="useBilling"><input type="checkbox" id="useBilling"> Same as billing address</label>
   </form>
 </body>
 </html>
