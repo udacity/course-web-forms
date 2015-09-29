@@ -8,6 +8,10 @@ body {
   padding-right: 1em;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .heading {
   font-style: italic;
   color: #aaa;
@@ -92,60 +96,6 @@ h2.title-display {
     display: block;
   }
 }
-
-/*
-@media screen and (min-width: 851px) {
-  .datetime-entry {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .start-date span, .end-date span, .times span {
-    display: inline-block;
-  }
-  
-  .start-date, .end-date {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
-  .times {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .times span:last-of-type {
-    margin-left: 1em;
-  }
-}
-
-@media screen and (min-width: 651px) and (max-width: 850px) {
-  .date-inputs, .details-entry {
-    margin-left: 5em;
-    margin-right: 5em;
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .date-inputs, .details-entry {
-    margin-left: 1em;
-    margin-right: 1em;
-  }
-
-  .times {
-    justify-content: space-between;
-  }
-
-  .times span:last-of-type {
-    margin-left: 0em;
-  }
-}
-*/
-
 
 .error-message {
   color: red;

@@ -14,9 +14,22 @@
   <section class="card">
     <h2 class="title-display placeholder">Untitled Event</h2>
     <div class="card-details">
-      <div class="card-detail"><div class="card-detail-category">What?</div><div class="placeholder card-detail-actual what">Description</div></div>
-      <div class="card-detail"><div class="card-detail-category">Where?</div><div class="placeholder card-detail-actual where">Place</div></div>
-      <div class="card-detail"><div class="card-detail-category">When?</div><div class="placeholder card-detail-actual when">Time</div></div>
+      <div class="card-detail">
+        <div class="card-detail-category">What?</div>
+        <div class="placeholder card-detail-actual what">Description</div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-category">Where?</div>
+        <div class="placeholder card-detail-actual where">Place</div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-category">When?</div>
+        <div class="placeholder card-detail-actual when">Time</div>
+      </div>
+      <div class="card-detail hidden">
+        <div class="card-detail-category">Who?</div>
+        <div class="placeholder card-detail-actual who">People</div>
+      </div>
     </div>
   </section>
   <section class="inputs">
@@ -66,9 +79,13 @@
       <div class="input-actual"><input class="new-guest" type="text"></div>
     </div>
     
-    <div class="attendees" style="margin-left: 1em;"></div>
-    
     <button id="create" style="margin-left: 1em;">Create event</button>
+    
+    <div class="attendees" style="margin-left: 1em;"></div>
+    <label>Show attendees in the invite?
+      <input type="checkbox">
+    </label>
+    
     <div class="error-message"></div>
   
   </section>
