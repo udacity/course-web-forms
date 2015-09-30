@@ -16,23 +16,23 @@
       </tr>
       <tr>
         <td><label for="quiz1">Quiz 1:</label></td>
-        <td><input type="number" id="quiz1" min="0" step="10" value="0" required></td>
-        <td>(needs max)</td>
+        <td><input type="number" id="quiz1" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs max)</s></td>
       </tr>
       <tr>
         <td><label for="quiz2">Quiz 2:</label></td>
-        <td><input type="number" id="quiz2" max="100" step="10" value="0" required></td>
-        <td>(needs min)</td>
+        <td><input type="number" id="quiz2" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs min)</s></td>
       </tr>
       <tr>
         <td><label for="quiz3">Quiz 3:</label></td>
-        <td><input type="number" id="quiz3" step="10" value="0" required></td>
-        <td>(needs min and max)</td>
+        <td><input type="number" id="quiz3" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs min and max)</s></td>
       </tr>
       <tr>
         <td><label for="quiz4">Quiz 4:</label></td>
-        <td><input type="number" id="quiz4" value="0" required></td>
-        <td>(needs min, max, and step)</td>
+        <td><input type="number" id="quiz4" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs min, max, and step)</s></td>
       </tr>
       <tr>
         <td></td>
@@ -41,7 +41,8 @@
       </tr>
       <tr>
         <td><label for="grade">Grade:</label></td>
-        <td><input type="text" id="grade" size="2" minlength="1" maxlength="2" required></td>
+        <td><input type="text" id="grade" size="2" minlength="1" maxlength="2"
+                   pattern="A|A\+|([B-D][+-]?)|F" required></td>
         <td>(Extra credit: use "pattern" to check for A, A-, B, B+, B-, down to F.)</td>
       </tr>
       <tr>
