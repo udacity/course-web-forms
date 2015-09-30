@@ -35,6 +35,27 @@ header {
   .company-page {
     display: none;
   }
+
+  .company-name {
+    display: block;
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  header {
+    padding: 0px;
+  }
+}
+
+@media screen and (min-width: 451px) {
+  section.form {
+    font-size: 2em;
+  }
+
+  .company-name {
+    display: inline;
+  }
 }
 
 @media screen and (min-width: 651px) {
@@ -76,7 +97,7 @@ section.form, section.order-review{
 }
 
 section.form {
-  font-size: 2em;
+  /*font-size: 2em;*/
 }
 
 section.form input {
