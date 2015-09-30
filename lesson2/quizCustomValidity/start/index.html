@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - setCustomValidity</title>
+</head>
+<body>
+  <h3>Create a new password</h3>
+  <p>Password should meet the following requirements:</p>
+  <ul>
+    <li>16-100 characters (longer is better)</li>
+    <li>At least one of these symbols: !, @, #, $, %, ^, &, *</li>
+    <li>At least one number</li>
+    <li>At least one lowercase letter</li>
+    <li>At least one uppercase letter</li>
+  </ul>
+  <form>
+    <label>
+      <input id="first" type="text" placeholder="New password" autofocus>
+    </label>
+    <label>
+      <input id="second" type="text" placeholder="Repeat password">
+    </label>
+    <input id="submit" type="submit">
+  </form>
+
+  <script>
+    /*
+    So what happens next? Your code goes here!
+     */
+    
+    /*
+    You might find you want to use RegEx. As this quiz is about setCustomValidity,
+    and not RegEx, here are some RegEx patterns you might find useful:
+
+    match the required symbols: /[\!\@\#\$\%\^\&\*]/g
+    match numbers: /[0-9]/g or /\d/g
+    match lowercase letters: /[a-z]/g
+    match uppercase letters: /[A-Z]/g
+    match a character that isn't allowed in this password: /[^A-z0-9\!\@\#\$\%\^\&\*]/g
+     */
+    
+    /*
+    Grabbing a few inputs to help you get started...
+     */
+    var firstPasswordInput = document.querySelector('#first');
+    var secondPasswordInput = document.querySelector('#second');
+    var submit = document.querySelector('#submit');
+    
+    /*
+    You'll probably find this function useful...
+     */  
+    submit.onclick = function () {
+
+    };
+  </script>
+</body>
+</html>
