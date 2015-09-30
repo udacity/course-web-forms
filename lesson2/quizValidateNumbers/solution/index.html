@@ -1,0 +1,79 @@
+<!DOCtype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - Validate Numeric Values</title>
+</head>
+<body>
+  <h1>Gradebook</h1>
+  <p>All grade values are 0, 10, 20, 30, ... 100. Use the average as a guide for issuing a letter grade.</p>
+  <form action="#" id="grading">
+    <table>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td colspan="2"><input type="email" placeholder="student@example.com" required></td>
+      </tr>
+      <tr>
+        <td><label for="quiz1">Quiz 1:</label></td>
+        <td><input type="number" id="quiz1" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs max)</s></td>
+      </tr>
+      <tr>
+        <td><label for="quiz2">Quiz 2:</label></td>
+        <td><input type="number" id="quiz2" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs min)</s></td>
+      </tr>
+      <tr>
+        <td><label for="quiz3">Quiz 3:</label></td>
+        <td><input type="number" id="quiz3" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs min and max)</s></td>
+      </tr>
+      <tr>
+        <td><label for="quiz4">Quiz 4:</label></td>
+        <td><input type="number" id="quiz4" min="0" max="100" step="10" value="0" required></td>
+        <td><s>(needs min, max, and step)</s></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Average: <output id="average">__</output></td>
+        <td><button id="calculate" type="button">Calculate</button></td>
+      </tr>
+      <tr>
+        <td><label for="grade">Grade:</label></td>
+        <td><input type="text" id="grade" size="2" minlength="1" maxlength="2"
+                   pattern="A|A\+|([B-D][+-]?)|F" required></td>
+        <td>(Extra credit: use "pattern" to check for A, A-, B, B+, B-, down to F.)</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan=2><input type="submit"></td>
+      </tr>
+
+    </table>
+  </form>
+  <script>
+    (function() {
+      var quiz1 = document.getElementById('quiz1');
+      var quiz2 = document.getElementById('quiz2');
+      var quiz3 = document.getElementById('quiz3');
+      var quiz4 = document.getElementById('quiz4');
+      var grade = document.getElementById('grade');
+      var calc = document.getElementById('calculate');
+      var output = document.getElementById('average');
+
+
+      calc.onclick = function() {
+        var average = Math.round(10 *
+                                ((parseFloat(quiz1.value) || 0) +
+                                 (parseFloat(quiz2.value) || 0) +
+                                 (parseFloat(quiz3.value) || 0) +
+                                 (parseFloat(quiz4.value) || 0)) / 4) / 10;
+        output.innerHTML = average.toString();
+      }
+
+
+    })();
+  </script>
+</body>
+</html>
