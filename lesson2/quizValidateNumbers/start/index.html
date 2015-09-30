@@ -1,0 +1,53 @@
+<!DOCtype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - Validate Numeric Values</title>
+</head>
+<body>
+  <h1>Gradebook</h1>
+  <h2>All grade values are 0, 10, 20, 30, ... 100</h2>
+  <form action="#" id="grading">
+    <table>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td colspan="2"><input type="email" placeholder="student@example.com" required></td>
+      </tr>
+      <tr>
+        <td><label for="quiz1">Quiz 1:</label></td>
+        <td><input type="number" id="quiz1" min="0" step="10" value="0" required></td>
+        <td>(needs max)</td>
+      </tr>
+      <tr>
+        <td><label for="quiz2">Quiz 2:</label></td>
+        <td><input type="number" id="quiz2" max="100" step="10" value="0" required></td>
+        <td>(needs min)</td>
+      </tr>
+      <tr>
+        <td><label for="quiz3">Quiz 3:</label></td>
+        <td><input type="number" id="quiz3" step="10" value="0" required></td>
+        <td>(needs min and max)</td>
+      </tr>
+      <tr>
+        <td><label for="quiz4">Quiz 4:</label></td>
+        <td><input type="number" id="quiz4" value="0" required></td>
+        <td>(needs min, max, and step)</td>
+      </tr>
+      <tr>
+        <td><label for="grade">Grade:</label></td>
+        <td><input type="text" id="grade" size="2" minlength="1" maxlength="2" value="--"></td>
+        <td>(Extra credit: use "pattern" to check for A, A-, B, B+, B-, down to F.)</td>
+      </tr>
+      <tr>
+        <td colspan="2">Suggested Grade: <span id="computed">?</span></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan=2><input type="submit"></td>
+      </tr>
+
+    </table>
+  </form>
+</body>
+</html>
