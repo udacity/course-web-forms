@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - Event Listener</title>
+  <style>
+    div {
+      background-color: red;
+      height: 200px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <form action="#">
+    <div id="square"></div>
+    <p id="output"></p>
+  </form>
+  <script>
+    var updatingInProcess;
+    var square = document.getElementById('square');
+    var output = document.getElementById('output');
+
+    function deleteContent() {
+      output.innerHTML = '';
+      updatingInProcess = false;
+    }
+
+    square.addEventListener('mouseup', function() {
+      if (! updatingInProcess) {
+        updatingInProcess = true;
+        output.innerHTML = 'mouseup';
+        setTimeout(deleteContent, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
