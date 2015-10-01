@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - Simple Touch</title>
+  <style>
+    .main {
+      max-width: 40em;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: justify;
+    }
+
+    .inline-block {
+      display: inline-block;
+      background: #15c;
+      color: white;
+      height: 1.5em;
+      padding-top: 0;
+      border: 1px solid;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+      <h3>Responsive Touch UI</h3>
+      <span align="justify">
+        Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.<div class="inline-block touchable">A wild touchable <code>inline-block</code> appears!</div> Pharetra metus id, ut nunc lobortis est eget, sit in magna ea mollis convallis, volutpat mus arcu montes in ac, adipiscing integer ipsum. Et volutpat ipsum wisi erat, amet massa suscipit, eget ornare sed aptent dolor ut turpis. Hymenaeos quam eros sit. Hendrerit dignissim nullam, in augue vestibulum nec proin, ullamcorper non vivamus. Morbi est et magna sociosqu sit.<button class="touchable">Press me!</button>
+      </span>
+  </div>
+  <script>
+    /*
+    No need to edit this script :)
+     */
+
+    /*
+    Let's tell the users it will only work on mobile
+     */
+    var isMobile = {
+      Android: function() {
+        return navigator.userAgent.match(/Android/i);
+      },
+      BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+      },
+      iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+      },
+      Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+      },
+      Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+      },
+      any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+      }
+    };
+
+    window.onload = function() {
+      if ( !isMobile.any()) {
+        document.querySelector(".main").innerHTML = "<h4>For this demo to work you will need to run it from a mobile device or open Chrome DevTools.</h4>";
+      }
+    }
+  </script>
+</body>
+</html>
