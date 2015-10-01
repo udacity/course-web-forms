@@ -6,9 +6,18 @@
   <title>Quiz - Labels</title>
 </head>
 <body>
-  <form action="#">
-    <!-- Using "for" (even with nested content) ensures that screen readers connect the label with the control -->
-    <label for="useBilling"><input type="checkbox" id="useBilling"> Same as billing address</label>
+  <form>
+    <label for="use-billing">
+      <span>Same as billing address</span>
+    </label>
+    <input type="checkbox" id="use-billing">
+
+    <br>
+
+    <label for="tel-number">
+      <span>Telephone Number</span>
+      <input type="tel" id="tel-number">
+    </label>
   </form>
 </body>
 </html>
