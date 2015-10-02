@@ -4,36 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quiz - Event Listener</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <!-- jquery.ui.touch-punch adds touch events to jQuery UI. It'll bind touchend events to mouseup -->
+  <!-- <script src="/course-web-forms/etc/jquery.ui.touch-punch.min.js"></script> -->
   <style>
-    div {
+    #square {
       background-color: red;
       height: 200px;
       width: 200px;
     }
+
+    .output {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
-  <form action="#">
+  <form>
     <div id="square"></div>
     <p id="output"></p>
   </form>
   <script>
-    var updatingInProcess;
-    var square = document.getElementById('square');
-    var output = document.getElementById('output');
+    /*
+    You can solve this quiz with vanilla JS or jQuery!
+     */
 
-    function deleteContent() {
-      output.innerHTML = '';
-      updatingInProcess = false;
-    }
+    (function() {
+      var square = document.querySelector('#square');
+      var output = document.querySelector('#output');
 
-    square.addEventListener('mouseup', function() {
-      if (! updatingInProcess) {
-        updatingInProcess = true;
+      var updatingInProcess = false;
+      function showMouseUp() {
         output.innerHTML = 'mouseup';
-        setTimeout(deleteContent, 5000);
+        if (!updatingInProcess) {
+          updatingInProcess = true;
+          setTimeout(function () {
+            output.innerHTML = '';
+          updatingInProcess = false;
+          }, 2000);
+        }
       }
+
+      square.addEventListener('mouseup', showMouseUp, false)
+    })();
+    
+    $(function(){
+      /*
+      FYI, this is the jQuery way of running a locally scoped function on
+      document ready. Check out http://gregfranko.com/blog/jquery-best-practices/
+      to learn more.
+       */
+      var square = $('#square');
+      var output = $('#output');
+
+      /*
+      Don't delete this or the square won't be draggable!
+       */
+      square.draggable();
+
+      /*
+      Here's the same technique w/jQuery. It's commented out because there's no need
+      for identical JS and jQuery event listeners on the same node.
+       */
+      // var updatingInProcess = false;
+      // square.on('mouseup', function() {
+      //   if (!updatingInProcess) {
+      //     updatingInProcess = true;
+      //     output.html('mouseup');
+      //     setTimeout(function() {
+      //       output.fadeOut(500);
+      //       updatingInProcess = false;
+      //     }, 2000);
+      //   }
+      // });
     });
+
   </script>
 </body>
 </html>
