@@ -10,18 +10,63 @@
 	<div class="main">
 		<div class="slider-main">
 			<h3>Slide me</h3>
-			<div class="toggle">|||</div>
 			<svg height="10" width="150">
-			  <line x1="0" y1="1" x2="150" y2="1" style="stroke:rgb(0,0,0);stroke-width:2" />
+			  <line x1="0" y1="5" x2="150" y2="5" style="stroke:rgb(0,0,0);stroke-width:2" />
 			</svg>
+			<div class="toggle">|||</div>
 		</div>
 	</div>
 	<script>
+		(function() {
 		var toggle = document.querySelector('.toggle');
 
+		function TouchPositionManager () {
+			this.origin = toggle.getBoundingClientRect().left;
+			this.latestPosition = NaN;
+			this.leftOffset = NaN;
+
+			// also needs some boundaries
+		};
+
+		TouchPositionManager.prototype = {
+			register: function (position) {
+				this.latestPosition = position - this.leftOffset;
+			},
+			setLeftOffset: function (position) {
+				var toggleLeft = toggle.getBoundingClientRect().left;
+				this.leftOffset = position - toggleLeft;
+			},
+			getDiffFromOrigin: function () {
+				return -(this.origin - this.latestPosition);
+			}
+		}
+
+		// why are only 1 or two touches working?
+
+		var tPM = new TouchPositionManager();
+
+		function slide() {
+			var touchOffset = tPM.getDiffFromOrigin();
+
+			console.log(touchOffset, tPM.origin);
+
+			toggle.style.webkitTransform = "translateX(" + touchOffset + "px)";
+		}
+
+		toggle.addEventListener('touchstart', function(event) {
+			tPM.setLeftOffset(event.touches[0].pageX);
+		});
+
 		toggle.addEventListener('touchmove', function(event) {
-			console.log(event.touches[0].pageX);
-		})
+			tPM.register(event.touches[0].pageX);
+			requestAnimationFrame(slide);
+		});
+
+		toggle.addEventListener('touchend', function(event) {
+			// do something? emit a finished event?
+			// trigger the end of the animation
+		});
+	})();
 	</script>
 </body>
 </html>

@@ -1,3 +1,10 @@
+body {
+	-moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .slider-main {
 	width: 150px;
 	margin-left: auto;
@@ -9,10 +16,10 @@
 	position: absolute;
 	height: 30px;
 	width: 20px;
-	background: rgba(100,100,100,0.5)
+	background: rgba(100,100,100,1)
 }
 
 svg {
-	margin-top: 15px;
+	margin-top: 10px;
 	position: absolute;
 }
