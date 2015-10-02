@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quiz - Touch Slider</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+	<div class="main">
+		<div class="slider-main">
+			<h3>Slide me</h3>
+			<div class="toggle">|||</div>
+			<svg height="10" width="150">
+			  <line x1="0" y1="1" x2="150" y2="1" style="stroke:rgb(0,0,0);stroke-width:2" />
+			</svg>
+		</div>
+	</div>
+	<script>
+		var toggle = document.querySelector('.toggle');
+
+		toggle.addEventListener('touchmove', function(event) {
+			console.log(event.touches[0].pageX);
+		})
+	</script>
+</body>
+</html>
