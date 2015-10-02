@@ -47,20 +47,19 @@
 
 		function slide() {
 			var touchOffset = tPM.getDiffFromOrigin();
-
-			console.log(touchOffset, tPM.origin);
-
+			// will need other transforms
 			toggle.style.webkitTransform = "translateX(" + touchOffset + "px)";
+			// requestAnimationFrame(slide);
 		}
 
 		toggle.addEventListener('touchstart', function(event) {
 			tPM.setLeftOffset(event.touches[0].pageX);
-		});
+		}, true);
 
 		toggle.addEventListener('touchmove', function(event) {
 			tPM.register(event.touches[0].pageX);
 			requestAnimationFrame(slide);
-		});
+		}, true);
 
 		toggle.addEventListener('touchend', function(event) {
 			// do something? emit a finished event?
