@@ -11,7 +11,7 @@ body {
 	margin-right: auto;
 }
 
-.toggle {
+#toggle {
 	text-align: center;
 	position: absolute;
 	height: 30px;
