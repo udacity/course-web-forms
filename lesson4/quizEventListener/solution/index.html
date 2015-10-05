@@ -40,11 +40,15 @@
       var updatingInProcess = false;
       function showMouseUp() {
         output.innerHTML = 'mouseup';
+
+        /*
+        Hide the fact that mouseup occured after 2s so that you can click again.
+         */
         if (!updatingInProcess) {
           updatingInProcess = true;
           setTimeout(function () {
             output.innerHTML = '';
-          updatingInProcess = false;
+            updatingInProcess = false;
           }, 2000);
         }
       }
@@ -70,17 +74,19 @@
       Here's the same technique w/jQuery. It's commented out because there's no need
       for identical JS and jQuery event listeners on the same node.
        */
-      // var updatingInProcess = false;
-      // square.on('mouseup', function() {
-      //   if (!updatingInProcess) {
-      //     updatingInProcess = true;
-      //     output.html('mouseup');
-      //     setTimeout(function() {
-      //       output.fadeOut(500);
-      //       updatingInProcess = false;
-      //     }, 2000);
-      //   }
-      // });
+      /*
+      var updatingInProcess = false;
+      square.on('mouseup', function() {
+        if (!updatingInProcess) {
+          updatingInProcess = true;
+          output.html('mouseup');
+          setTimeout(function() {
+            output.fadeOut(500);
+            updatingInProcess = false;
+          }, 2000);
+        }
+      });
+       */
     });
 
   </script>
