@@ -1,3 +1,7 @@
+/*
+Write your code in the attachEventListeners() function defintion, which starts on line 89.
+ */
+
 (function() {
 	/*
 	The actual grey box your finger touches.
@@ -92,33 +96,10 @@
 			3) On end, set flag that the toggle has stopped sliding. Once again, it doesn't need to be 
 			limited to the toggle as the finger/mouse can come up anywhere in the window.
 		 */
-		toggle.addEventListener('touchstart', function (event) {
-			sliding = true;
-			toggleTracker.addMovement(event.touches[0].pageX);
-		});
-		window.addEventListener('touchmove', function (event) {		
-			if (sliding) {
-				toggleTracker.addMovement(event.touches[0].pageX);
-				requestAnimationFrame(slide);
-			}		
-		});
-		window.addEventListener('touchend', function (event) {				
-			sliding = false;
-		});
 
-		toggle.addEventListener('mousedown', function (event) {				
-			sliding = true;
-			toggleTracker.addMovement(event.pageX);
-		});
-		window.addEventListener('mousemove', function (event) {				
-			if (sliding) {
-				toggleTracker.addMovement(event.pageX);
-				requestAnimationFrame(slide);
-			}
-		});
-		window.addEventListener('mouseup', function (event) {				
-			sliding = false;
-		});
+		/*
+		Your code goes here!
+		 */
 	}
 
 	/*
