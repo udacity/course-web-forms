@@ -5,6 +5,10 @@ body {
   user-select: none;
 }
 
+label {
+	display: block;
+}
+
 .slider-main {
 	width: 300px;
 	margin-top: 200px;
@@ -17,7 +21,16 @@ body {
 	position: absolute;
 	height: 48px;
 	width: 96px;
-	background: rgba(100,100,100,1)
+	background: rgba(100,100,100,1);
+	
+}
+
+.red {
+	background: rgba(255, 144, 144, 1) !important;
+}
+
+.blue {
+	background: rgba(144, 144, 255, 1) !important;
 }
 
 .markings {
