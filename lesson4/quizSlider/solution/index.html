@@ -92,15 +92,21 @@
 		var isSelected = false;
 		function attachEventListeners() {
 			var $toggle = $('#toggle');
+			var $slider = $('.slider-main');
+
+			var sliding = false;
 			$toggle.on('touchstart', function (event) {
+				sliding = true;
 				tPM.addTouch(event.originalEvent.touches[0].pageX);
 			});
-			$toggle.on('touchmove', function (event) {				
-				tPM.addTouch(event.originalEvent.touches[0].pageX);
-				requestAnimationFrame(slide);
+			$(window).on('touchmove', function (event) {		
+				if (sliding) {
+					tPM.addTouch(event.originalEvent.touches[0].pageX);
+					requestAnimationFrame(slide);
+				}		
 			});
 			$toggle.on('touchend', function (event) {				
-				// isSelected = false;
+				sliding = false;
 			});
 
 			$toggle.on('mousedown', function (event) {				
