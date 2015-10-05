@@ -6,7 +6,8 @@ body {
 }
 
 .slider-main {
-	width: 150px;
+	width: 300px;
+	margin-top: 200px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -14,12 +15,27 @@ body {
 #toggle {
 	text-align: center;
 	position: absolute;
-	height: 30px;
-	width: 20px;
+	height: 48px;
+	width: 96px;
 	background: rgba(100,100,100,1)
 }
 
+.markings {
+	padding-top: 16px;
+}
+
 svg {
-	margin-top: 10px;
 	position: absolute;
+}
+
+.output {
+	position: absolute;
+	bottom: 0vh;
+	width: 48px;
+	height: 48px;
+	display: block;
+}
+
+.hide {
+	opacity: 0;
 }

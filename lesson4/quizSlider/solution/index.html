@@ -9,54 +9,116 @@
 </head>
 <body>
 	<div class="main">
+		<h3>Slide me</h3>
 		<div class="slider-main">
-			<h3>Slide me</h3>
-			<svg height="10" width="150">
-			  <line x1="0" y1="5" x2="150" y2="5" style="stroke:rgb(0,0,0);stroke-width:2" />
+			<svg id="line" height="48" width="300">
+			  <line x1="0" y1="24" x2="300" y2="24" style="stroke:rgb(0,0,0);stroke-width:2" />
 			</svg>
-			<div id="toggle">|||</div>
+			<div id="toggle"><div class="markings">|||</div></div>
 		</div>
+		<div class="output">Output</div>
 	</div>
 	<script>
 		(function() {
 		var toggle = document.querySelector('#toggle');
+		var slider = document.querySelector('.slider-main');
+		var line = document.querySelector('#line');
+		var output = document.querySelector('.output');
+
+		output.onclick = function () {
+			this.classList.toggle('hide');
+			this.innerHTML = "Output";
+		};
 
 		function TouchPositionManager () {
-			this.origin = toggle.getBoundingClientRect().left;
-			this.latestPosition = NaN;
-			this.leftOffset = NaN;
+			var toggleRect = toggle.getBoundingClientRect();
+			var lineRect = line.getBoundingClientRect();
 
-			// also needs some boundaries
+			this.touchOffset = 0;
+			this._max = lineRect.width - toggleRect.width;
+			this._half = this._max / 2;
 		};
 
 		TouchPositionManager.prototype = {
-			register: function (position) {
-				this.latestPosition = position - (this.leftOffset || 0);
+			_touches: [],
+			_currentDx: NaN,
+			addTouch: function (touch) {
+				this._touches[0] = this._touches[1] || touch;
+				this._touches[1] = touch;
 			},
-			getDiffFromOrigin: function () {
-				var diff = this.latestPosition - this.origin;
-				return diff;
+			_reportDx: function (dx) {
+				if (output.innerHTML === "Output") {
+					this._currentDx = dx;
+					output.innerHTML = this._currentDx;
+				} else if (dx > this._currentDx) {
+					this._currentDx = dx;
+					output.innerHTML = this._currentDx;
+				}
+			},
+			getTranslateX: function () {
+				var reportedValue;
+
+				var dx = this._touches[1] - this._touches[0];
+
+				this._reportDx(dx);
+
+				this.touchOffset = this.touchOffset + dx;
+				reportedValue = this.touchOffset;
+
+				if (reportedValue < 0) {
+					reportedValue = 0;
+				}
+
+				if (reportedValue > this._max) {
+					reportedValue = this._max;
+				}
+
+				return reportedValue;
 			}
 		}
+		function slide() {
+			var offsetX = tPM.getTranslateX();
+			toggle.style.webkitTransform = "translateX(" + offsetX + "px)";
+			toggle.style.transform = "translateX(" + offsetX + "px)";
+		}
+		
+
+		// TODO:
+		// build animateToEnd()
+		// then start playing with dx and position numbers to figure out when to slide
+
 		var tPM = new TouchPositionManager();
 
+		var isSelected = false;
 		function attachEventListeners() {
 			var $toggle = $('#toggle');
+			$toggle.on('touchstart', function (event) {
+				tPM.addTouch(event.originalEvent.touches[0].pageX);
+			});
 			$toggle.on('touchmove', function (event) {				
-				tPM.register(event.originalEvent.touches[0].pageX);
+				tPM.addTouch(event.originalEvent.touches[0].pageX);
 				requestAnimationFrame(slide);
 			});
-			$toggle.on('touchend', function (event) {
-				attachEventListeners();
-			})
+			$toggle.on('touchend', function (event) {				
+				// isSelected = false;
+			});
+
+			$toggle.on('mousedown', function (event) {				
+				isSelected = true;
+				tPM.addTouch(event.originalEvent.pageX);
+				// requestAnimationFrame(slide);
+			});
+			$toggle.on('mousemove', function (event) {				
+				if (isSelected) {
+					tPM.addTouch(event.originalEvent.pageX);
+					requestAnimationFrame(slide);
+				}
+			});
+			$toggle.on('mouseup', function (event) {				
+				isSelected = false;
+			});
 		}
 		attachEventListeners();
-
-		function slide() {
-			var touchOffset = tPM.getDiffFromOrigin();
-			toggle.style.webkitTransform = "translateX(" + touchOffset + "px)";
-		}
-
 	})();
 	</script>
 </body>
