@@ -31,7 +31,7 @@ svg {
 .output {
 	position: absolute;
 	bottom: 0vh;
-	width: 48px;
+	width: 96px;
 	height: 48px;
 	display: block;
 }

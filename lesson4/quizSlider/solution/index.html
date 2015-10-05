@@ -16,116 +16,28 @@
 			</svg>
 			<div id="toggle"><div class="markings">|||</div></div>
 		</div>
-		<div class="output">Output</div>
 	</div>
+	<script src="js/app.js"></script>
 	<script>
-		(function() {
-		var toggle = document.querySelector('#toggle');
-		var slider = document.querySelector('.slider-main');
-		var line = document.querySelector('#line');
-		var output = document.querySelector('.output');
+		/*
+		No need to touch! Just blocks accidental scrolling
+		 */
 
-		output.onclick = function () {
-			this.classList.toggle('hide');
-			this.innerHTML = "Output";
-		};
-
-		function TouchPositionManager () {
-			var toggleRect = toggle.getBoundingClientRect();
-			var lineRect = line.getBoundingClientRect();
-
-			this.touchOffset = 0;
-			this._max = lineRect.width - toggleRect.width;
-			this._half = this._max / 2;
-		};
-
-		TouchPositionManager.prototype = {
-			_touches: [],
-			_currentDx: NaN,
-			addTouch: function (touch) {
-				this._touches[0] = this._touches[1] || touch;
-				this._touches[1] = touch;
-			},
-			_reportDx: function (dx) {
-				if (output.innerHTML === "Output") {
-					this._currentDx = dx;
-					output.innerHTML = this._currentDx;
-				} else if (dx > this._currentDx) {
-					this._currentDx = dx;
-					output.innerHTML = this._currentDx;
-				}
-			},
-			getTranslateX: function () {
-				var reportedValue;
-
-				var dx = this._touches[1] - this._touches[0];
-
-				this._reportDx(dx);
-
-				this.touchOffset = this.touchOffset + dx;
-				reportedValue = this.touchOffset;
-
-				if (reportedValue < 0) {
-					reportedValue = 0;
-				}
-
-				if (reportedValue > this._max) {
-					reportedValue = this._max;
-				}
-
-				return reportedValue;
-			}
-		}
-		function slide() {
-			var offsetX = tPM.getTranslateX();
-			toggle.style.webkitTransform = "translateX(" + offsetX + "px)";
-			toggle.style.transform = "translateX(" + offsetX + "px)";
-		}
-		
-
-		// TODO:
-		// build animateToEnd()
-		// then start playing with dx and position numbers to figure out when to slide
-
-		var tPM = new TouchPositionManager();
-
-		var isSelected = false;
-		function attachEventListeners() {
-			var $toggle = $('#toggle');
-			var $slider = $('.slider-main');
-
-			var sliding = false;
-			$toggle.on('touchstart', function (event) {
-				sliding = true;
-				tPM.addTouch(event.originalEvent.touches[0].pageX);
-			});
-			$(window).on('touchmove', function (event) {		
-				if (sliding) {
-					tPM.addTouch(event.originalEvent.touches[0].pageX);
-					requestAnimationFrame(slide);
-				}		
-			});
-			$toggle.on('touchend', function (event) {				
-				sliding = false;
-			});
-
-			$toggle.on('mousedown', function (event) {				
-				isSelected = true;
-				tPM.addTouch(event.originalEvent.pageX);
-				// requestAnimationFrame(slide);
-			});
-			$toggle.on('mousemove', function (event) {				
-				if (isSelected) {
-					tPM.addTouch(event.originalEvent.pageX);
-					requestAnimationFrame(slide);
-				}
-			});
-			$toggle.on('mouseup', function (event) {				
-				isSelected = false;
-			});
-		}
-		attachEventListeners();
-	})();
+		// http://stackoverflow.com/questions/16348031/disable-scrolling-when-touch-moving-certain-element
+		window.blockMenuHeaderScroll = false;
+		$(window).on('touchstart', function(e) {
+	    if ($(e.target).closest('.main').length == 1) {
+				blockMenuHeaderScroll = true;
+	    }
+		});
+		$(window).on('touchend', function() {
+			blockMenuHeaderScroll = false;
+		});
+		$(window).on('touchmove', function(e) {
+	    if (blockMenuHeaderScroll) {
+				e.preventDefault();
+	    }
+		});
 	</script>
 </body>
 </html>
