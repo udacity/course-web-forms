@@ -12,13 +12,64 @@
       text-align: justify;
     }
 
-    .inline-block {
-      display: inline-block;
-      background: #15c;
-      color: white;
+    button {
+      display: block;
+      margin: 20px 0px;
+      box-sizing: border-box;
+
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      text-align:center;
+      text-decoration: none;
+
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+
+    .touchable {
       height: 1.5em;
       padding-top: 0;
-      border: 1px solid;
+      color: white;
+      font-size: 1.1em;
+      
+      background: #15c;
+      
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .touchable:hover {
+      /*background: HotPink;*/
+    }
+
+    .touchable:focus {
+      /*background: FireBrick;*/
+    }
+
+    .touchable:active {
+      /*background: Aqua;*/
+    }
+
+    /* Webkit / Chrome Specific CSS to remove tap 
+      highlight color */
+    .touchable {
+      -webkit-tap-highlight-color: transparent;
+    }
+      
+    /* Firefox Specific CSS to remove button 
+      differences and focus ring */
+    .touchable {
+      background-image: none;
+    }
+
+    .touchable::-moz-focus-inner {
+      border: 0;
     }
   </style>
 </head>
@@ -26,7 +77,11 @@
   <div class="main">
       <h3>Responsive Touch UI</h3>
       <span align="justify">
-        Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.<div class="inline-block touchable">A wild touchable <code>inline-block</code> appears!</div> Pharetra metus id, ut nunc lobortis est eget, sit in magna ea mollis convallis, volutpat mus arcu montes in ac, adipiscing integer ipsum. Et volutpat ipsum wisi erat, amet massa suscipit, eget ornare sed aptent dolor ut turpis. Hymenaeos quam eros sit. Hendrerit dignissim nullam, in augue vestibulum nec proin, ullamcorper non vivamus. Morbi est et magna sociosqu sit.<button class="touchable">Press me!</button>
+        Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
+        <button class="touchable">Button 1</button>
+        <button class="touchable">Button 2</button>
+        <button class="touchable">Button 3</button>
+        Pharetra metus id, ut nunc lobortis est eget, sit in magna ea mollis convallis, volutpat mus arcu montes in ac, adipiscing integer ipsum. Et volutpat ipsum wisi erat, amet massa suscipit, eget ornare sed aptent dolor ut turpis. Hymenaeos quam eros sit. Hendrerit dignissim nullam, in augue vestibulum nec proin, ullamcorper non vivamus. Morbi est et magna sociosqu sit.
       </span>
   </div>
   <script>
