@@ -38,11 +38,11 @@
       var output = document.querySelector('#output');
 
       var updatingInProcess = false;
-      function showMouseUp() {
-        output.innerHTML = 'mouseup';
+      function showTouchEnd() {
+        output.innerHTML = 'touchend';
 
         /*
-        Hide the fact that mouseup occured after 2s so that you can click again.
+        Hide the fact that touchend occured after 2s so that you can click again.
          */
         if (!updatingInProcess) {
           updatingInProcess = true;
@@ -53,7 +53,7 @@
         }
       }
 
-      square.addEventListener('mouseup', showMouseUp, false)
+      square.addEventListener('touchend', showTouchEnd, false)
     })();
     
     $(function(){
@@ -76,10 +76,10 @@
        */
       /*
       var updatingInProcess = false;
-      square.on('mouseup', function() {
+      square.on('touchend', function() {
         if (!updatingInProcess) {
           updatingInProcess = true;
-          output.html('mouseup');
+          output.html('touchend');
           setTimeout(function() {
             output.fadeOut(500);
             updatingInProcess = false;
