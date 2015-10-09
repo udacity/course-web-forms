@@ -102,7 +102,7 @@
 				requestAnimationFrame(slide);
 			}		
 		});
-		window.addEventListener('touchend', function (event) {				
+		window.addEventListener('touchend', function (event) {
 			sliding = false;
 		});
 
@@ -116,7 +116,7 @@
 				requestAnimationFrame(slide);
 			}
 		});
-		window.addEventListener('mouseup', function (event) {				
+		window.addEventListener('mouseup', function (event) {
 			sliding = false;
 		});
 	}
@@ -129,6 +129,6 @@
 		Flag to indicate whether the toggle is in the process of sliding.
 		 */
 		var sliding = false;
-    attachEventListeners();
+		attachEventListeners();
   });
 })();
