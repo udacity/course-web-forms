@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="import" href="bower_components/gold-cc-input/gold-cc-input.html">
+		<link rel="import" href="bower_components/gold-email-input/gold-email-input.html">
+		<link rel="import" href="bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
+		<link rel="import" href="bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
+		<link rel="import" href="bower_components/gold-zip-input/gold-zip-input.html">
+		<link rel="import" href="bower_components/iron-form/iron-form.html">
+		<link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+		<link rel="import" href="bower_components/paper-input/paper-input.html">
+		<link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+		<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+		<link rel="import" href="bower_components/paper-progress/paper-progress.html">
+		<link rel="import" href="bower_components/paper-card/paper-card.html">
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body class="fullbleed layout vertical">
+		<paper-header-panel mode="seamed">
+			<paper-toolbar>
+	      <div>Cam's Checkout</div>
+	    </paper-toolbar>
+	    <paper-progress value="90"></paper-progress>
+			<div class="layout vertical main">
+				<form is="iron-form">
+					<paper-card heading="Payment Info">
+						<paper-input label="Name"></paper-input>
+						<gold-cc-input label="Card Number" auto-validate card-type="{{cardType}}"></gold-cc-input>
+						<div class="layout horizontal">
+							<gold-zip-input class="sub-cc"></gold-zip-input>
+							<gold-cc-expiration-input class="sub-cc"></gold-cc-expiration-input>
+							<gold-cc-cvc-input card-type="[[cardType]]"></gold-cc-cvc-input>
+						</div>
+					</paper-card>
+
+					<paper-card heading="Shipping Info">
+						<gold-cc-input label="Card Number" auto-validate></gold-cc-input>
+						<gold-email-input label="Email Address" auto-validate></gold-email-input>
+					</paper-card>
+				</form>
+			</div>
+		</paper-header-panel>
+	</body>
+</html>
