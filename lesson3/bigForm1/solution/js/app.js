@@ -56,5 +56,5 @@ ccInput.oninput = function () {
 
 var sameAsShipping = document.querySelector('#same-as-shipping');
 sameAsShipping.onchange = function () {
-	document.querySelector('.billing').classList.toggle('hide');
+	document.querySelector('.billing-inputs').classList.toggle('hide');
 };

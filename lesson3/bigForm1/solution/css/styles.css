@@ -26,8 +26,7 @@ header {
   font-size: 2em;
 }
 
-section.form {
-  font-size: 2em;
+div.form {
   padding: 0px 10px;
 }
 
@@ -40,7 +39,7 @@ section.form {
     display: none !important;
   }
 
-  section.form {
+  div.form {
     padding-top: 50px;
   }
 }
@@ -65,7 +64,7 @@ section.form {
 }
 
 @media screen and (min-width: 651px) {
-  section.form {
+  div.form {
     padding-top: 100px;
   }
 }
@@ -92,16 +91,16 @@ label {
 .progress-bar > span {
 }
 
-section.form, section.order-review{
+div.form, div.order-review{
   display: block;
-  max-width: 720px;
+  max-width: 16em;
   margin-left: auto;
   margin-right: auto;
 }
 
-section.form input {
+div.form input {
   display: block;
-  font-size: 0.7em;
+  font-size: 1.5em;
 }
 
 /* http://stackoverflow.com/questions/3790935/can-i-hide-the-html5-number-input-s-spin-box */
