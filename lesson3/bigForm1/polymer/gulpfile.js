@@ -35,6 +35,7 @@ var files = [
 ];
 
 gulp.task('watch', function () {
+	gulp.start('default');
 	watch(files, batch(function (events, done) {
 		gulp.start('default', done);
 	}));

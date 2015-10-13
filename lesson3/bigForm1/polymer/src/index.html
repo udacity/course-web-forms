@@ -26,7 +26,7 @@
 			<paper-toolbar>
 	      <div>Cam's Checkout</div>
 	    </paper-toolbar>
-	    <paper-progress value="90"></paper-progress>
+	    <paper-progress value="0"></paper-progress>
 			<div class="layout vertical main">
 				<form is="iron-form">
 					
@@ -48,29 +48,22 @@
 					</paper-card>
 
 					<paper-card heading="Where Do You Want Your Order Sent?">
-						<paper-input label="Name"></paper-input>
-						<paper-input label="Address Line 1"></paper-input>
-						<paper-input label="Address Line 2"></paper-input>
-						<paper-input label="Address Line 3"></paper-input>
-						<paper-input label="Address Line 4"></paper-input>
+						<paper-input id="ship-name" label="Name"></paper-input>
+						<paper-input id="ship-address" label="Address" onFocus="geolocate()"></paper-input>
 					</paper-card>
 						
 					<paper-card heading="How Would You Like to Pay?">
 						<p><em>Note: don't enter any real information!</em></p>
-						<gold-cc-input label="Card Number" auto-validate card-type="{{cardType}}"></gold-cc-input>
+						<gold-cc-input id="cc-number" label="Card Number" auto-validate card-type="{{cardType}}"></gold-cc-input>
 						<div class="layout horizontal">
 							<gold-zip-input class="sub-cc"></gold-zip-input>
-							<gold-cc-expiration-input class="sub-cc"></gold-cc-expiration-input>
+							<gold-cc-expiration-input id="cc-exp" class="sub-cc"></gold-cc-expiration-input>
 							<gold-cc-cvc-input card-type="[[cardType]]"></gold-cc-cvc-input>
 						</div>
 						<paper-checkbox class="use-diff-billing">Use a Different Billing Address?</paper-checkbox>
-						
 						<div class="new-billing">
-							<paper-input label="Name"></paper-input>
-							<paper-input label="Address Line 1"></paper-input>
-							<paper-input label="Address Line 2"></paper-input>
-							<paper-input label="Address Line 3"></paper-input>
-							<paper-input label="Address Line 4"></paper-input>
+							<paper-input id="bill-name" label="Name"></paper-input>
+							<paper-input id="bill-address" label="Address Line"></paper-input>
 						</div>
 					</paper-card>
 
@@ -78,7 +71,8 @@
 				</form>
 			</div>
 		</paper-header-panel>
-
 		<script src="js/app.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBdsoKK0wPlfMXjhNEv9y6juA_T2Er0Ek&signed_in=true&libraries=places&callback=initAutocomplete"
+        async defer></script>
 	</body>
 </html>

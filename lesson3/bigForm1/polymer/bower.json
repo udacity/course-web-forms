@@ -20,6 +20,7 @@
     "gold-elements": "PolymerElements/gold-elements#~1.0.1",
     "iron-elements": "PolymerElements/iron-elements#~1.0.4",
     "paper-progress": "PolymerElements/paper-progress#~1.0.7",
-    "paper-elements": "PolymerElements/paper-elements#~1.0.5"
+    "paper-elements": "PolymerElements/paper-elements#~1.0.5",
+    "google-apis": "GoogleWebComponents/google-apis#~1.1.2"
   }
 }
