@@ -12,16 +12,6 @@ function scrollDown () {
 	}
 };
 
-function scrollUp () {
-	scroller.scrollTop = scroller.scrollTop + diff/12;
-
-	console.log(scroller.scrollTop, endScrollTop);
-
-	if (Math.abs(scroller.scrollTop - endScrollTop) > 10) {
-		window.requestAnimationFrame(scrollDown);
-	}
-};
-
 useDiffBilling.addEventListener('change', function (e) {
 	newBilling.classList.toggle('fade-in');
 

@@ -43,7 +43,7 @@ function getCardType(number) {
   return "";
 }
 
-var submit = document.querySelector('#submit');
+var submit = document.querySelector('.submit');
 submit.onclick = function () {
   alert("All of your information was valid, right? I'll just go ahead and assume that it is ;)\n\nThanks for your submission!");
 };
@@ -54,7 +54,29 @@ ccInput.oninput = function () {
   ccType.value = getCardType(ccInput.value);
 };
 
-var sameAsShipping = document.querySelector('#same-as-shipping');
-sameAsShipping.onchange = function () {
-	document.querySelector('.billing-inputs').classList.toggle('hide');
+// TODO: fix this hacked together math logic
+
+var useDiffBilling = document.querySelector('#use-diff-billing');
+var newBilling = document.querySelector('.new-billing');
+var submit = document.querySelector('.submit');
+
+var currScrollTop, endScrollTop, diff;
+function scrollDown () {
+  window.scrollBy(0, diff/12);
+
+  if (Math.abs(window.scrollY - endScrollTop) < 500) {
+    window.requestAnimationFrame(scrollDown);
+  }
 };
+
+useDiffBilling.addEventListener('change', function (e) {
+  newBilling.classList.toggle('fade-in');
+
+  if (this.checked) {
+    currScrollTop = window.scrollY;
+    endScrollTop = submit.getBoundingClientRect().bottom;
+
+    diff = currScrollTop -  endScrollTop;
+    window.requestAnimationFrame(scrollDown); 
+  }
+});
