@@ -55,14 +55,13 @@ ccInput.oninput = function () {
 };
 
 // TODO: fix this hacked together math logic
-
 var useDiffBilling = document.querySelector('#use-diff-billing');
 var newBilling = document.querySelector('.new-billing');
 var submit = document.querySelector('.submit');
 
 var currScrollTop, endScrollTop, diff;
 function scrollDown () {
-  window.scrollBy(0, diff/12);
+  window.scrollBy(0, -diff/12);
 
   if (Math.abs(window.scrollY - endScrollTop) < 500) {
     window.requestAnimationFrame(scrollDown);
@@ -76,7 +75,7 @@ useDiffBilling.addEventListener('change', function (e) {
     currScrollTop = window.scrollY;
     endScrollTop = submit.getBoundingClientRect().bottom;
 
-    diff = currScrollTop -  endScrollTop;
+    diff = currScrollTop - endScrollTop;
     window.requestAnimationFrame(scrollDown); 
   }
 });
