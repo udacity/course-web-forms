@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Creation - A Bad Form</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <header>
+    <p class="heading">Create an Event</p>
+  </header>
+  <section class="card">
+    <h2 class="title-display placeholder">Untitled Event</h2>
+    <div class="card-details">
+      <div class="card-detail">
+        <div class="card-detail-category">What?</div>
+        <div class="placeholder card-detail-actual what">Description</div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-category">Where?</div>
+        <div class="placeholder card-detail-actual where">Place</div>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-category">When?</div>
+        <div class="placeholder card-detail-actual when">Time</div>
+      </div>
+      <div class="card-detail hidden">
+        <div class="card-detail-category">Who?</div>
+        <div class="placeholder card-detail-actual who">People</div>
+      </div>
+    </div>
+  </section>
+  <section class="inputs">
+    <div class="input split">
+      <div class="input-type">Event Name</div>
+      <div class="input-actual"><input type="text" class="model model-title title"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Event Type</div>
+      <div class="input-actual"><select type="text" class="model model-type type">
+        <option>Party</option>
+        <option>Meeting</option>
+        <option>Conference Talk</option>
+        <option>Sports Game</option>
+      </select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Start time</div>
+      <div class="input-actual"><input class="model model-startTime input-datetime start-time" type="time"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">End time</div>
+      <div class="input-actual"><input class="model model-endTime input-datetime end-time" type="time"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Day</div>
+      <div class="input-actual"><select class="model model-startDay input-datetime day" type="text"></select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Month</div>
+      <div class="input-actual"><select class="model model-startMonth input-datetime month" type="text"></select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Year</div>
+      <div class="input-actual"><select class="model model-startYear input-datetime year" type="text"></select></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Event Description</div>
+      <div class="input-actual"><input type="text" class="model model-description"></div>
+    </div>
+    <div class="input split">
+      <div class="input-type">Event location</div>
+      <div class="input-actual"><input type="text" class="model model-location"></div>
+    </div>
+    <div class="input full">
+      <div class="input-type">Attendee email addresses</div>
+      <div class="input-actual"><input class="new-guest" type="text"></div>
+    </div>
+    
+    <button id="create" style="margin-left: 1em;">Create event</button>
+    
+    <div class="attendees" style="margin-left: 1em;"></div>
+    <label>Show attendees in the invite?
+      <input type="checkbox">
+    </label>
+    
+    <div class="error-message"></div>
+  
+  </section>
+  <script src="js/app.js"></script>
+</body>
+</html>

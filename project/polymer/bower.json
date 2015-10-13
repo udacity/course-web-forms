@@ -1,0 +1,25 @@
+{
+  "name": "l3-bigform-gold",
+  "version": "0.0.0",
+  "homepage": "https://github.com/udacity/course-web-forms",
+  "authors": [
+    "cameronwp <cameron.w.pittman@gmail.com>"
+  ],
+  "description": "Example of a checkout form with Polymer",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.1.0",
+    "gold-elements": "PolymerElements/gold-elements#~1.0.1",
+    "iron-elements": "PolymerElements/iron-elements#~1.0.4",
+    "paper-progress": "PolymerElements/paper-progress#~1.0.7",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.5"
+  }
+}

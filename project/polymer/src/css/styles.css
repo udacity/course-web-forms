@@ -1,0 +1,81 @@
+body {
+	background-color: #fafafa;
+	font-family: 'Roboto', 'Noto', sans-serif;
+}
+
+paper-toolbar {
+	height: 100px;
+}
+
+.main {
+	width: 100%;
+	padding-bottom: 16px;
+}
+
+paper-progress {
+	width: 100%;
+	position: fixed;
+	z-index: 999;
+}
+
+paper-card {
+	padding: 16px;
+	margin: 8px 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+paper-card.input {
+	max-width: 400px;
+}
+
+.display-event {
+	margin-top: 16px;
+	color: #000;
+}
+
+paper-card:first-of-type {
+	margin-top: 20px;
+}
+
+paper-card:last-of-type {
+	margin-bottom: 16px;
+}
+
+.sub-cc {
+	margin-right: 16px;
+}
+
+img.responsive {
+	max-width: 100%;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.price {
+	color: #ff5419;
+}
+
+.use-diff-billing {
+	margin-top: 20px;
+}
+
+.new-billing {
+	height: 0px;
+	opacity: 0;
+	overflow-y: hidden;
+	transition: opacity 0.3s, height 0.3s;
+	-webkit-transition: opacity 0.3s, height 0.3s;
+}
+
+.fade-in {
+	opacity: 1;
+	height: 100%;
+}
+
+.submit {
+	background: #3f51b5;
+	color: #fff;
+}
