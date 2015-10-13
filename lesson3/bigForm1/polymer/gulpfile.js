@@ -1,7 +1,9 @@
 var gulp = require('gulp');
 var vulcanize = require('gulp-vulcanize');
-var minify = require('gulp-minify');
 var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 
 gulp.task('vulcanize', function () {
 	return gulp.src('src/index.html')
@@ -19,10 +21,21 @@ gulp.task('compress', function() {
 		.pipe(gulp.dest('dest/js'));
 });
 
-gulp.task('minify', function() {
+gulp.task('minify-css', function() {
 	return gulp.src('src/css/*.css')
-		.pipe(minify())
+		.pipe(minifyCss({compatibility: 'ie8'}))
 		.pipe(gulp.dest('dest/css'));
 });
 
-gulp.task('default', ['vulcanize', 'compress', 'minify']);
+gulp.task('default', ['vulcanize', 'compress', 'minify-css']);
+
+var files = [
+	'src/*',
+	'src/*/*'
+];
+
+gulp.task('watch', function () {
+	watch(files, batch(function (events, done) {
+		gulp.start('default', done);
+	}));
+});
