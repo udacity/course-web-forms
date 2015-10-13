@@ -17,44 +17,36 @@
       margin: 20px 0px;
       box-sizing: border-box;
 
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      text-align:center;
-      text-decoration: none;
-
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-    
-
-    .touchable {
-      height: 1.5em;
       padding-top: 0;
       color: white;
       font-size: 1.1em;
       width: 100%;
-      
-      background: #15c;
-      
+      height: 48px;
+
       -moz-user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
 
-    .touchable:hover {
-      background: HotPink;
+    .touchable {
+      background-color: BlueViolet;
     }
 
-    .touchable:focus {
-      background: FireBrick;
+    button.touchable:hover {
+      background-color: HotPink;
     }
 
-    .touchable:active {
-      background: Aqua;
+    button.touchable:focus {
+      background-color: FireBrick;
+      
+      /* The outline parameter surpresses the border 
+      color / outline when focused */
+      outline: 0;
+    }
+
+    button.touchable:active {
+      background-color: Aqua;
     }
 
     /* Webkit / Chrome Specific CSS to remove tap 
@@ -74,14 +66,14 @@
     }
   </style>
 </head>
-<body>
+<body ontouchstart="">
   <div class="main">
       <h3>Responsive Touch UI</h3>
       <span align="justify">
-        Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
-        <button class="touchable">Button 1</button>
-        <button class="touchable">Button 2</button>
-        <button class="touchable">Button 3</button>
+        8Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
+        <button class="touchable" tabindex="1">Button 1</button>
+        <button class="touchable" tabindex="2">Button 2</button>
+        <button class="touchable" tabindex="3">Button 3</button>
         Pharetra metus id, ut nunc lobortis est eget, sit in magna ea mollis convallis, volutpat mus arcu montes in ac, adipiscing integer ipsum. Et volutpat ipsum wisi erat, amet massa suscipit, eget ornare sed aptent dolor ut turpis. Hymenaeos quam eros sit. Hendrerit dignissim nullam, in augue vestibulum nec proin, ullamcorper non vivamus. Morbi est et magna sociosqu sit.
       </span>
   </div>
