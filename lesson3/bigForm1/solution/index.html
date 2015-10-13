@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz - One Big, Ugly Form</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <header>
+    <span class="company-name">Cam's Company</span>
+    <span class="company-page">Checkout Page</span>
+    <div class="progress-bar">
+      <span>Shipping Address</span>
+      <span>Payment Info</span>
+      <span>Billing Address</span>
+    </div>
+  </header>
+  <div class="form order">
+
+    <!-- Show the order w/generic vg console images -->
+
+    <p>Your Order!</p>
+  </div>
+  <div class="form address ship">
+    <p>Shipping Address</p>
+    <label for="ship-name"><span class="sr-only">Name</span>
+      <input id="ship-name" type="text" placeholder="Name" required>
+    </label>
+    <label for="ship-address1"><span class="sr-only">Address Line 1</span>
+      <input id="ship-address1" type="text" placeholder="Address Line 1" required>
+    </label>
+    <label for="ship-address2"><span class="sr-only">Address Line 2</span>
+      <input id="ship-address2" type="text" placeholder="Address Line 2">
+    </label>
+    <label for="ship-address3"><span class="sr-only">Address Line 3</span>
+      <input id="ship-address3" type="text" placeholder="Address Line 3">
+    </label>
+    <label for="ship-city"><span class="sr-only">City</span>
+      <input id="ship-city" type="text" placeholder="City" required>
+    </label>
+    <label for="ship-region"><span class="sr-only">State/Province/Region</span>
+      <input id="ship-region" type="text" placeholder="State/Province/Region" required>
+    </label>
+    <label for="ship-postalcode"><span class="sr-only">Postal Code</span>
+      <input id="ship-postalcode" type="text" placeholder="Postal Code" required>
+    </label>
+    <label for="ship-country"><span class="sr-only">Country</span>
+      <input id="ship-country" type="text" placeholder="Country" required>
+    </label>
+  </div>
+  <div class="form payment">
+    <p>Payment Information</p>
+    <p class="cc-warning"><em>Note: don't enter any actual credit card info!</em></p>
+    <label for="cc-number"><span class="sr-only">Credit Card Number</span>
+      <input id="cc-number" type="cc-number" placeholder="●●●● ●●●● ●●●● ●●●" required>
+    </label>
+
+    <label for="cc-type"><span class="sr-only">Type</span>
+      <input id="cc-type" type="cc-type" placeholder="Credit Card Type" disabled></input>
+    </label>
+    
+    <label for="cc-mm"><span class="sr-only">Credit Card Expiration Month</span>
+      <input id="cc-mm" type="number" min="0" max="9999" maxlength="2" placeholder="MM" required>
+    </label>
+    <label for="cc-yy"><span class="sr-only">Credit Card Expiration Year</span>
+      <input id="cc-yy" type="number" min="15" max="9999" maxlength="2" placeholder="YY" required>
+    </label>
+    <label for="cc-csc"><span class="sr-only">Credit Card Security Code</span>
+      <input id="cc-csc" type="number" min="000" max="9999" maxlength="3" placeholder="CSC" required>
+    </label>
+  </div>
+  <div class="form address billing">
+    <h3>Billing Address</h3>
+    <label for="same-as-shipping"><span>Billing address is same as shipping?</span>
+      <input id="same-as-shipping" type="checkbox" checked>
+    </label>
+    <div class="billing-inputs hide">
+      <label for="bill-name"><span class="sr-only">Name</span>
+        <input id="bill-name" type="text" placeholder="Name" required>
+      </label>
+      <label for="bill-address1"><span class="sr-only">Address Line 1</span>
+        <input id="bill-address1" type="text" placeholder="Address Line 1" required>
+      </label>
+      <label for="bill-address2"><span class="sr-only">Address Line 2</span>
+        <input id="bill-address2" type="text" placeholder="Address Line 2">
+      </label>
+      <label for="bill-address3"><span class="sr-only">Address Line 3</span>
+        <input id="bill-address3" type="text" placeholder="Address Line 3">
+      </label>
+      <label for="bill-city"><span class="sr-only">City</span>
+        <input id="bill-city" type="text" placeholder="City" required>
+      </label>
+      <label for="bill-region"><span class="sr-only">State/Province/Region</span>
+        <input id="bill-region" type="text" placeholder="State/Province/Region" required>
+      </label>
+      <label for="bill-postalcode"><span class="sr-only">Postal Code</span>
+        <input id="bill-postalcode" type="text" placeholder="Postal Code" required>
+      </label>
+      <label for="bill-country"><span class="sr-only">Country</span>
+        <input id="bill-country" type="text" placeholder="Country" required>
+      </label>
+    </div>
+  </div>
+
+  <div class="order-review">
+    <h3>Your Order</h3>
+    <table class="your-order">
+      <tr class="headings">
+        <td>Product</td>
+        <td>Quantity</td>
+        <td>Price</td>
+        <td>Total</td>
+      </tr>
+      <tr>
+        <td>Game Console 2015</td>
+        <td>1</td>
+        <td>$500.00</td>
+        <td>$500.00</td>
+      </tr>
+      <tr>
+        <td>Platformer Bros 3D</td>
+        <td>1</td>
+        <td>$50.00</td>
+        <td>$50.00</td>
+      </tr>
+      <tr class="total">
+        <td>Total</td>
+        <td>$550.00</td>
+      </tr>
+    </table>
+    <input id="submit" type="submit">
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
