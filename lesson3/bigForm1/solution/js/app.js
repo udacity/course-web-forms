@@ -76,6 +76,6 @@ useDiffBilling.addEventListener('change', function (e) {
     endScrollTop = submit.getBoundingClientRect().bottom;
 
     diff = currScrollTop - endScrollTop;
-    window.requestAnimationFrame(scrollDown); 
+    // window.requestAnimationFrame(scrollDown); 
   }
 });
