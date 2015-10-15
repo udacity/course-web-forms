@@ -14,3 +14,4 @@ function postReady () {
 	// post message to containing window with the results
 	parent.postMessage(result, '*');
 }
+// console.log(window.location.pathname);

@@ -6,8 +6,13 @@ var outputCorrect = document.querySelector('.result-correct');
 var outputIncorrect = document.querySelector('.result-incorrect');
 
 window.addEventListener('message', function(message) {
-	console.log(message);
 	var result = JSON.stringify(message.data);
-	console.log(result);
-	// output.innerHTML = result;
+
+	if (message.source.location.pathname.match('\-correct')) {
+		outputCorrect.innerHTML = result;
+	}
+
+	if (message.source.location.pathname.match('\-incorrect')) {
+		outputIncorrect.innerHTML = result;
+	}
 })
