@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Test iFrame Quiz</title>
+	<style>
+		iframe {
+			border: 1px #444 solid;
+			min-height: 50px;
+		}
+
+		.flex-container {
+			display: flex;
+		}
+
+		.horizontal {
+			flex-direction: row;
+		}
+
+		.vertical {
+			flex-direction: column;
+		}
+	</style>
+</head>
+<body>
+	<p>Assumes that there is no JS in the start / solution HTML. Might break if there is.</p>
+	<div class="flex-container horizontal">
+		<div class="frame">
+			<h2>Solution Code Result</h2>
+			<div class="output-correct">
+				<h3>Executor Result:</h3>
+				<div class="result-correct">Pending</div>
+			</div>
+			<h3>Actual iFrame:</h3>
+			<iframe src="iframe-correct.html" frameborder="0"></iframe>
+		</div>
+		
+		<div class="frame">
+			<h2>Start Code Result</h2>
+			<div class="output-incorrect">
+				<h3>Executor Result:</h3>
+				<div class="result-incorrect">Pending</div>
+			</div>
+			<h3>Actual iFrame:</h3>
+			<iframe src="iframe-incorrect.html" frameborder="0"></iframe>
+		</div>
+	</div>
+
+	<script src="app.js"></script>
+</body>
+</html>
