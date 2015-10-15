@@ -2,7 +2,8 @@
 	<script src="student.js"></script>
 	<script>
 		$(document).ready(function () {
-			postReady();
+			var result = performSubmission() || {'result': 'error. see console.'};
+			parent.postMessage(result, '*')
 		})
 	</script>
 </body>

@@ -1,16 +1,3 @@
-var comment, isCorrect;
-comment = "";
-
-// string _comment. adds new comment for grade results w/proper formatting
-function commentizer (_comment) {
-  comment = comment + _comment + "\n";
-}
-// string variable. returns true if the variable exists. modifies comment string and returns false otherwise.
-function varStillExists (variable) {
-  if (typeof variable !== undefined) return true;
-  commentizer(variable + " doesn't exist. Did you accidentally change its name?");
-  return false;
-}
 // jquery elem. returns true if elem is a jquery elem. modifies comment string and returns false otherwise.
 function isjQuery (elem) {
   // could use obj.jquery, which will only return true if it is a jquery object

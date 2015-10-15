@@ -5,7 +5,7 @@ var concat = require('gulp-concat');
 var copy = require('gulp-copy');
 
 var jsApplicationFiles = [
-	'../../../etc/js_grader.js',
+	'../../../etc/grader/grader.js',
 	'execution_files/unit_tests.js'
 ]
 
@@ -17,30 +17,30 @@ gulp.task('js-app', function () {
 
 var verbatimCopy = [
 	'execution_files/student.js',
-	'src/index.html',
-	'src/js/iframe.js',
-	'src/js/app.js'
+	'../../../etc/grader/src/index.html',
+	'../../../etc/grader/src/js/iframe.js',
+	'../../../etc/grader/src/js/app.js'
 ]
 
 gulp.task('copy', function () {
 	return gulp.src(verbatimCopy)
-	  .pipe(copy('dest', {prefix: 2}));
+	  .pipe(copy('dest', {prefix: 9}));
 })
 
 var iFrameFilesCorrect = [
-	'src/iframe-start.html',
+	'../../../etc/grader/src/iframe-start.html',
 	'../solution/index.html',
-	'src/iframe-middle.html',
+	'../../../etc/grader/src/iframe-middle.html',
 	'execution_files/student.html',
-	'src/iframe-end.html'
+	'../../../etc/grader/src/iframe-end.html'
 ]
 
 var iFrameFilesIncorrect = [
-	'src/iframe-start.html',
+	'../../../etc/grader/src/iframe-start.html',
 	'../start/index.html',
-	'src/iframe-middle.html',
+	'../../../etc/grader/src/iframe-middle.html',
 	'execution_files/student.html',
-	'src/iframe-end.html'
+	'../../../etc/grader/src/iframe-end.html'
 ]
 
 gulp.task('create-iframe-correct', function () {
@@ -60,7 +60,10 @@ gulp.task('default', ['js-app', 'copy', 'create-iframe-correct', 'create-iframe-
 var files = [
 	'src/*',
 	'src/*/*',
-	'execution_files/*'
+	'execution_files/*',
+	'../../../etc/grader/*',
+	'../../../etc/grader/src/*',
+	'../../../etc/grader/src/js/*'
 ];
 
 gulp.task('watch', function () {
