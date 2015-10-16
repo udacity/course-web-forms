@@ -541,108 +541,51 @@ function performSubmission() {
 	});
 
 	grader.addTest(function() {
-		return grader.hasCorrectLength('option', 4);
+		return grader.hasCorrectLength('label', 1);
 	}, {
-	  wrongMessage: "There should be four <options>."
+	  wrongMessage: "There should be one <label>."
 	});
 
 	grader.addTest(function() {
 		return grader.hasCorrectLength('input', 1);
 	}, {
 	  wrongMessage: "There should be one <input>."
-	});
+	}, false);
 
 	grader.addTest(function() {
-	  return !grader.doesExist('select');
+		return grader.hasCorrectLength('input[type="text"]', 1);
 	}, {
-	  wrongMessage: "There shouldn't be a <select> on the page."
-	});
-
-	grader.addTest(function() {
-	  return grader.doesExist('datalist') && grader.hasCorrectLength('datalist', 1);
-	}, {
-	  wrongMessage: "There should be one <datalist> on the page."
+	  wrongMessage: "The <input> should have type=\"text\"."
 	}, false);
 
 	grader.addTest(function() {
 		var isCorrect = false;
-		var elems = $('option');
-		elems.each(function (index) {
-			var isImmediateChild = grader.isImmediateChild(this, 'datalist');
-			if (index === 0) {
-				isCorrect = isImmediateChild;
-			} else {
-				isCorrect = isCorrect && isImmediateChild;
-			}
-		});
+		var input = $('input');
+		var id = input.attr('id');
+		
+		var hasOneLabel = grader.hasCorrectLength('label[for="' + id + '"]', 1);
+		isCorrect = hasOneLabel;
+
 	  return isCorrect;
 	}, {
-	  wrongMessage: "<option>s should be children of the <datalist>."
-	}, false);
-
-	grader.addTest(function() {
-		var isCorrect = false;
-		var elems = $('option');
-		elems.each(function (index) {
-			var text = $(this).text();
-			if (index === 0) {
-				isCorrect = text.length === 0;
-			} else {
-				isCorrect = isCorrect && text.length === 0;
-			}
-		});
-	  return isCorrect;
-	}, {
-	  wrongMessage: "<option>s should not have innerHTML."
-	});	
-
-	grader.addTest(function() {
-		var isCorrect = false;
-		var elems = $('option');
-		elems.each(function (index) {
-			var hasValue = grader.hasAttr(this, 'value');
-			if (index === 0) {
-				isCorrect = hasValue;
-			} else {
-				isCorrect = isCorrect && hasValue;
-			}
-		});
-	  return isCorrect;
-	}, {
-	  wrongMessage: "Each <option> needs a value attribute."
-	}, false);
-
-	grader.addTest(function() {
-		return grader.hasAttr('datalist', 'id')
-	}, {
-	  wrongMessage: "<datalist> needs an id."
+	  wrongMessage: "The <input> needs to be paired with a single <label>."
 	});
 
 	grader.addTest(function() {
-		return grader.hasAttr('input', 'list');
+		return grader.hasAttr('input', 'placeholder', 'Event Name');
 	}, {
-	  wrongMessage: "The <input> needs a list attribute"
+		wrongMessage: "The input should have a placeholder set to 'Event Name'."
 	});
 
-	grader.addTest(function() {
-		var areSame = false;
-		var listAttr = $('input').attr('list');
-		var datalistId = $('datalist').attr('id');
-		if (listAttr === datalistId) {
-			areSame = true;
-		}
-		return areSame;
-	}, {
-	  wrongMessage: "<input list> needs to match <datalist id>"
-	});
-
-	grader.runTests();
+	grader.runTests(
+		// {ignoreCheckpoints: true}
+	);
 
 	result = {
 	  is_correct: grader.isCorrect,
 	  test_feedback: grader.getFormattedWrongMessages('\n'),
 	  test_comments: grader.getFormattedComments('\n'),
-	  congrats: "Great job! Datalists are really useful :)"
+	  congrats: "The placeholder is looking good! Good job!"
 	};
 	return result;
 }
