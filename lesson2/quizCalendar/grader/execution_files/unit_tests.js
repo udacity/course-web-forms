@@ -20,7 +20,7 @@ function performSubmission() {
 		var input = $('input');
 		var id = input.attr('id');
 		
-		var hasOneLabel = grader.hasCorrectLength('label[for="' + id + '"]', 1);
+		var hasOneLabel = grader.hasCorrectLength('label[for="' + id + '"]', 1) || grader.hasParent(input, 'label');
 		isCorrect = hasOneLabel;
 
 	  return isCorrect;

@@ -382,7 +382,7 @@ var Grader = (function() {
       }
       if (correctAttr && elem.attr(attrName) === correctAttr) {
         isCorrect = true;
-      } else if (elem.attr(attrName)) {
+      } else if (!correctAttr && elem.attr(attrName)) {
         isCorrect = true;
       }
       return isCorrect;
@@ -488,6 +488,20 @@ var Grader = (function() {
         isCorrect = true;
       }
       return isCorrect;
+    },
+
+    hasParent: function (elem, parentElem) {
+      var isCorrect = false;
+      if (this.isjQuery(parentElem)) {
+        throw new Error("parentElem needs to be a string for Grader.hasParent()");
+      }
+      if (!this.isjQuery(elem)) {
+        elem = $(elem);
+      }
+      if (elem.closest(parentElem).length > 0) {
+        isCorrect = true;
+      }
+      return isCorrect;
     }
   }
 
@@ -557,7 +571,7 @@ function performSubmission() {
 		var input = $('input');
 		var id = input.attr('id');
 		
-		var hasOneLabel = grader.hasCorrectLength('label[for="' + id + '"]', 1);
+		var hasOneLabel = grader.hasCorrectLength('label[for="' + id + '"]', 1) || grader.hasParent(input, 'label');
 		isCorrect = hasOneLabel;
 
 	  return isCorrect;

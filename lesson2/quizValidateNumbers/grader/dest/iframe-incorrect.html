@@ -21,7 +21,7 @@
         <table>
             <tr>
                 <td><label for="email">Email:</label></td>
-                <td colspan="2"><input type="email" placeholder="student@example.com" required></td>
+                <td colspan="2"><input id="email" type="email" placeholder="student@example.com" required></td>
             </tr>
             <tr>
                 <td><label for="quiz1">Quiz 1:</label></td>
@@ -57,30 +57,9 @@
                 <td></td>
                 <td colspan=2><input type="submit"></td>
             </tr>
-
         </table>
     </form>
-    <script>
-        // (function() {
-        //     var quiz1 = document.getElementById('quiz1');
-        //     var quiz2 = document.getElementById('quiz2');
-        //     var quiz3 = document.getElementById('quiz3');
-        //     var quiz4 = document.getElementById('quiz4');
-        //     var grade = document.getElementById('grade');
-        //     var calc = document.getElementById('calculate');
-        //     var output = document.getElementById('average');
-
-
-        //     calc.onclick = function() {
-        //         var average = Math.round(10 *
-        //             ((parseFloat(quiz1.value) || 0) +
-        //              (parseFloat(quiz2.value) || 0) +
-        //              (parseFloat(quiz3.value) || 0) +
-        //              (parseFloat(quiz4.value) || 0)) / 4) / 10;
-        //         output.innerHTML = average.toString();
-        //     }
-        // })();
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
 

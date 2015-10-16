@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<head>
+	<title>iFrame</title>
+	<!-- Pretty sure everything here gets ignored -->
+</head>
+
+<body>
+	<!-- HTML body start -->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,5 +36,19 @@
     </label>
     <input id="submit" type="submit">
     <script src="app.js"></script>
+</body>
+</html>
+	<!-- HTML body end -->
+	<script type="text/javascript" src="/course-web-forms/etc/grader/lib/jquery.1.11.3.min.js" charset="utf-8"></script>
+	<script src="js_application.js"></script>
+	<!-- student html start -->
+	<!-- student HTML end -->
+	<script src="student-incorrect.js"></script>
+	<script>
+		$(document).ready(function () {
+			var result = performSubmission() || {'result': 'error. see console.'};
+			parent.postMessage(result, '*')
+		})
+	</script>
 </body>
 </html>

@@ -7,7 +7,6 @@
     var calc = document.getElementById('calculate');
     var output = document.getElementById('average');
 
-
     calc.onclick = function() {
         var average = Math.round(10 *
             ((parseFloat(quiz1.value) || 0) +
@@ -15,5 +14,5 @@
              (parseFloat(quiz3.value) || 0) +
              (parseFloat(quiz4.value) || 0)) / 4) / 10;
         output.innerHTML = average.toString();
-    }
+    };
 })();

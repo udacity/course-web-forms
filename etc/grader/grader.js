@@ -488,6 +488,20 @@ var Grader = (function() {
         isCorrect = true;
       }
       return isCorrect;
+    },
+
+    hasParent: function (elem, parentElem) {
+      var isCorrect = false;
+      if (this.isjQuery(parentElem)) {
+        throw new Error("parentElem needs to be a string for Grader.hasParent()");
+      }
+      if (!this.isjQuery(elem)) {
+        elem = $(elem);
+      }
+      if (elem.closest(parentElem).length > 0) {
+        isCorrect = true;
+      }
+      return isCorrect;
     }
   }
 
@@ -535,3 +549,7 @@ var Grader = (function() {
   }
   return Grader;
 })();
+
+function performTesting() {
+  return {'result': 'noop'}
+}

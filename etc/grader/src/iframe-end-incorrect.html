@@ -1,0 +1,10 @@
+	<!-- student HTML end -->
+	<script src="student-incorrect.js"></script>
+	<script>
+		$(document).ready(function () {
+			var result = performSubmission() || {'result': 'error. see console.'};
+			parent.postMessage(result, '*')
+		})
+	</script>
+</body>
+</html>
