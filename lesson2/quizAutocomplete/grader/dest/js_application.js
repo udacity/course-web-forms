@@ -544,18 +544,12 @@ function performSubmission() {
 		return grader.hasCorrectLength('label', 1);
 	}, {
 	  wrongMessage: "There should be one <label>."
-	});
+	}, false);
 
 	grader.addTest(function() {
 		return grader.hasCorrectLength('input', 1);
 	}, {
 	  wrongMessage: "There should be one <input>."
-	}, false);
-
-	grader.addTest(function() {
-		return grader.hasCorrectLength('input[type="text"]', 1);
-	}, {
-	  wrongMessage: "The <input> should have type=\"text\"."
 	}, false);
 
 	grader.addTest(function() {
@@ -568,13 +562,19 @@ function performSubmission() {
 
 	  return isCorrect;
 	}, {
-	  wrongMessage: "The <input> needs to be paired with a single <label>."
+	  wrongMessage: "The <input> needs to be paired with the <label>."
 	});
 
 	grader.addTest(function() {
-		return grader.hasAttr('input', 'placeholder', 'Event Name');
+		return grader.hasCorrectLength('input[type="email"]', 1);
 	}, {
-		wrongMessage: "The input should have a placeholder set to 'Event Name'."
+	  wrongMessage: "The <input> should be for type=\"email\"."
+	}, false);
+
+	grader.addTest(function() {
+		return grader.hasAttr('input', 'autocomplete', 'email');
+	}, {
+	  wrongMessage: "The <input> needs to autcomplete email addresses."
 	});
 
 	grader.runTests(
@@ -585,7 +585,7 @@ function performSubmission() {
 	  is_correct: grader.isCorrect,
 	  test_feedback: grader.getFormattedWrongMessages('\n'),
 	  test_comments: grader.getFormattedComments('\n'),
-	  congrats: "The placeholder is looking good! Good job!"
+	  congrats: "Nicely done. Making it possible to autcomplete your forms will definitely make them faster to finish!"
 	};
 	return result;
 }

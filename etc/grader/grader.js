@@ -382,7 +382,7 @@ var Grader = (function() {
       }
       if (correctAttr && elem.attr(attrName) === correctAttr) {
         isCorrect = true;
-      } else if (elem.attr(attrName)) {
+      } else if (!correctAttr && elem.attr(attrName)) {
         isCorrect = true;
       }
       return isCorrect;

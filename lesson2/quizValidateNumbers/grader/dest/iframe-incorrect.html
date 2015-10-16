@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<head>
+	<title>iFrame</title>
+	<!-- Pretty sure everything here gets ignored -->
+</head>
+
+<body>
+	<!-- HTML body start -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -51,5 +60,42 @@
 
         </table>
     </form>
+    <script>
+        // (function() {
+        //     var quiz1 = document.getElementById('quiz1');
+        //     var quiz2 = document.getElementById('quiz2');
+        //     var quiz3 = document.getElementById('quiz3');
+        //     var quiz4 = document.getElementById('quiz4');
+        //     var grade = document.getElementById('grade');
+        //     var calc = document.getElementById('calculate');
+        //     var output = document.getElementById('average');
+
+
+        //     calc.onclick = function() {
+        //         var average = Math.round(10 *
+        //             ((parseFloat(quiz1.value) || 0) +
+        //              (parseFloat(quiz2.value) || 0) +
+        //              (parseFloat(quiz3.value) || 0) +
+        //              (parseFloat(quiz4.value) || 0)) / 4) / 10;
+        //         output.innerHTML = average.toString();
+        //     }
+        // })();
+    </script>
+</body>
+</html>
+
+	<!-- HTML body end -->
+	<script type="text/javascript" src="/course-web-forms/etc/grader/lib/jquery.1.11.3.min.js" charset="utf-8"></script>
+	<script src="js_application.js"></script>
+	<!-- student html start -->
+<h3>Student HTML</h3>
+	<!-- student HTML end -->
+	<script src="student.js"></script>
+	<script>
+		$(document).ready(function () {
+			var result = performSubmission() || {'result': 'error. see console.'};
+			parent.postMessage(result, '*')
+		})
+	</script>
 </body>
 </html>
