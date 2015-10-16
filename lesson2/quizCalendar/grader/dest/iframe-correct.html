@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+	<title>iFrame</title>
+	<!-- Pretty sure everything here gets ignored -->
+</head>
+
+<body>
+	<!-- HTML body start -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz - Calendar</title>
+    <style>
+        body {
+            line-height: 1.5em;
+        }
+        label {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h3>Pick a date and time</h3>
+    <label for="calendar">Calendar
+        <input id="calendar" type="datetime-local">
+    </label>
+</body>
+</html>
+	<!-- HTML body end -->
+	<script type="text/javascript" src="/course-web-forms/etc/grader/lib/jquery.1.11.3.min.js" charset="utf-8"></script>
+	<script src="js_application.js"></script>
+	<!-- student html start -->
+<h3>Student HTML</h3>
+	<!-- student HTML end -->
+	<script src="student.js"></script>
+	<script>
+		$(document).ready(function () {
+			var result = performSubmission() || {'result': 'error. see console.'};
+			parent.postMessage(result, '*')
+		})
+	</script>
+</body>
+</html>

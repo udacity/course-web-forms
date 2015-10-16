@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="/course-web-forms/etc/grader/lib/jquery.1.11.3.min.js" charset="utf-8"></script>
+	<title>Test iFrame Quiz</title>
+	<style>
+		iframe {
+			border: 1px #444 solid;
+			min-height: 50px;
+		}
+
+		.flex-container {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.horizontal {
+			flex-direction: row;
+		}
+
+		.vertical {
+			flex-direction: column;
+		}
+
+		.frame {
+			width: 50%;
+		}
+
+		.output {
+			background: #ddd;
+			font-family: "Courier New", Courier, monospace;
+			width: 90%;
+		}
+	</style>
+</head>
+<body>
+	<p>Assumes that there is no JS in the start / solution HTML. Might break if there is.</p>
+	<div class="flex-container horizontal">
+		<div class="frame">
+			<h2>Start Code Result</h2>
+			<h3>Executor Result:</h3>
+			<div class="output output-incorrect">
+				<div class="result-incorrect">Pending</div>
+			</div>
+			<iframe src="iframe-incorrect.html" frameborder="0"></iframe>
+		</div>
+
+		<div class="frame">
+			<h2>Solution Code Result</h2>
+			<h3>Executor Result:</h3>
+			<div class="output output-correct">
+				<div class="result-correct">Pending</div>
+			</div>
+			<iframe src="iframe-correct.html" frameborder="0"></iframe>
+		</div>
+	</div>
+
+	<script src="app.js"></script>
+</body>
+</html>

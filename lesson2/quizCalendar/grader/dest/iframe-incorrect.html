@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<head>
+	<title>iFrame</title>
+	<!-- Pretty sure everything here gets ignored -->
+</head>
+
+<body>
+	<!-- HTML body start -->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,5 +35,20 @@
     <label id="time">Time
         <input id="time" type="text" placeholder="HH:MM" maxlength="5">
     </label>
+</body>
+</html>
+	<!-- HTML body end -->
+	<script type="text/javascript" src="/course-web-forms/etc/grader/lib/jquery.1.11.3.min.js" charset="utf-8"></script>
+	<script src="js_application.js"></script>
+	<!-- student html start -->
+<h3>Student HTML</h3>
+	<!-- student HTML end -->
+	<script src="student.js"></script>
+	<script>
+		$(document).ready(function () {
+			var result = performSubmission() || {'result': 'error. see console.'};
+			parent.postMessage(result, '*')
+		})
+	</script>
 </body>
 </html>
