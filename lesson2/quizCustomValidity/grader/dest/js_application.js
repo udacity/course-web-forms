@@ -557,9 +557,13 @@ function performSubmission() {
 	var grader = new Grader({
 		// can add shared messages here
 	});
-	window.setTimeout(function () {
-		$('#submit').click();
-	}, 500)
+	
+	var incorrectPasswords = [
+		'',
+		'a',
+	]
+
+	document.querySelector('#submit').onclick();
 
 	grader.runTests(
 		// {ignoreCheckpoints: true}

@@ -47,22 +47,6 @@ function performSubmission() {
 		var isCorrect = false;
 		var elems = $('option');
 		elems.each(function (index) {
-			var text = $(this).text();
-			if (index === 0) {
-				isCorrect = text.length === 0;
-			} else {
-				isCorrect = isCorrect && text.length === 0;
-			}
-		});
-	  return isCorrect;
-	}, {
-	  wrongMessage: "<option>s should not have innerHTML."
-	});	
-
-	grader.addTest(function() {
-		var isCorrect = false;
-		var elems = $('option');
-		elems.each(function (index) {
 			var hasValue = grader.hasAttr(this, 'value');
 			if (index === 0) {
 				isCorrect = hasValue;

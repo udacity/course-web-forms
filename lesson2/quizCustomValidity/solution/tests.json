@@ -1,0 +1,112 @@
+[{
+	"name": "Custom Validity",
+	"code": "hascustomvalidity",
+	"tests": [
+		{
+			"description": "first input has required attribute",
+			"definition": {
+				"nodes": "#first",
+				"attribute": "required",
+				"exists": true
+			}
+		},
+		{
+			"description": "second input has required attribute",
+			"definition": {
+				"nodes": "#second",
+				"attribute": "required",
+				"exists": true
+			}
+		},
+		{
+			"description": "Short passwords will create feedback messages with '16 characters' in them.",
+			"definition": {
+				"waitForEvent": "ud-short",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Long passwords will create feedback messages with '100 characters' in them.",
+			"definition": {
+				"waitForEvent": "ud-long",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Passwords without symbols will create feedback messages with 'symbol' in them.",
+			"definition": {
+				"waitForEvent": "ud-symbol",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Passwords without numbers will create feedback messages with 'number' in them.",
+			"definition": {
+				"waitForEvent": "ud-number",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Passwords without lowercase letters will create feedback messages with 'lowercase' in them.",
+			"definition": {
+				"waitForEvent": "ud-lowercase",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Passwords without uppercase letters will create feedback messages with 'uppercase' in them.",
+			"definition": {
+				"waitForEvent": "ud-uppercase",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Passwords with illegal characters will create feedback messages with 'illegal' in them.",
+			"definition": {
+				"waitForEvent": "ud-illegal",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Incorrect passwords get useful feedback",
+			"definition": {
+				"waitForEvent": "ud-incorrect",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Correct passwords pass!",
+			"definition": {
+				"waitForEvent": "ud-correct",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		}
+	]
+}]

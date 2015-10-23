@@ -5,7 +5,7 @@ var concat = require('gulp-concat');
 var copy = require('gulp-copy');
 
 var jsApplicationFiles = [
-	'../../../etc/grader/grader.js',
+	'../../../etc/grader/jsgrader.js',
 	'execution_files/unit_tests.js'
 ]
 
