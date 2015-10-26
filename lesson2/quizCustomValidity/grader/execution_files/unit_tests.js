@@ -2,6 +2,7 @@
 var firstPasswordInput = document.querySelector('#first');
 var secondPasswordInput = document.querySelector('#second');
 var submit = document.querySelector('#submit');
+var form = document.querySelector('form');
 var firstNativesCV = firstPasswordInput.setCustomValidity;
 var secondNativesCV = secondPasswordInput.setCustomValidity;
 var firstStudentMessage = null;
@@ -13,9 +14,25 @@ var grader = new Grader({
 
 alert = function() {};
 
-document.querySelector('form').onsubmit = function (event) {
-	return false;
-};
+if (form) {
+	document.querySelector('form').onsubmit = function (event) {
+		return false;
+	};
+}
+
+submit.onclick = submit.onclick || function(){};
+
+var allOfSubmitOnclick = submit.onclick.toString(); 
+var functionBody = allOfSubmitOnclick.slice(allOfSubmitOnclick.indexOf("{") + 1, allOfSubmitOnclick.lastIndexOf("}"));
+
+if (functionBody.length > 0) {
+	grader.addTest(function () {
+		window.dispatchEvent(new CustomEvent('ud-onsubmit', {'detail': 'passed'}));
+		return true;
+	}, {
+		wrongMessage: "intentionally left blank"
+	})
+}
 
 firstPasswordInput.setCustomValidity = function (message) {
 	firstStudentMessage = message;
@@ -36,11 +53,13 @@ secondPasswordInput.setCustomValidity = function (message) {
 function setOnePassword (password) {
 	firstPasswordInput.value = password;
 	secondPasswordInput.value = "";
+	submit.onclick();
 };
 
 function setBothPasswords (password1, password2) {
 	firstPasswordInput.value = password1;
 	secondPasswordInput.value = password2 || password1;
+	submit.onclick();
 }
 
 var shortPasswords = [
@@ -140,14 +159,38 @@ var correctPasswords = [
 ]
 
 grader.addTest(function() {
+  var allPass = false;
+	correctPasswords.forEach(function (pw, index) {
+		setBothPasswords(pw, pw + 'randomletters');
+
+		var re = new RegExp('match');
+		var includesMessage = false;
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
+	  	includesMessage = true;
+	  }
+
+	  if (index === 0) {
+	  	allPass = includesMessage;
+	  } else {
+	  	allPass = allPass && includesMessage;
+	  }
+	});
+	if (allPass) {
+		window.dispatchEvent(new CustomEvent('ud-matching', {'detail': 'passed'}));
+	}
+	return allPass;
+}, {
+	wrongMessage: "intentionally left blank"
+});
+
+grader.addTest(function() {
   var allHaveMessage = false;
 	shortPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('16');
 		var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -169,11 +212,10 @@ grader.addTest(function() {
   var allHaveMessage = false;
 	longPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('100');
 	  var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -195,11 +237,10 @@ grader.addTest(function() {
   var allHaveMessage = false;
 	symbollessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('symbol');
 	  var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -221,11 +262,10 @@ grader.addTest(function() {
   var allHaveMessage = false;
 	numberlessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('number');
 	  var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -247,11 +287,10 @@ grader.addTest(function() {
   var allHaveMessage = false;
 	lowercaselessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('lower');
 	  var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -273,11 +312,10 @@ grader.addTest(function() {
   var allHaveMessage = false;
 	uppercaselessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('upper');
 	  var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -299,11 +337,10 @@ grader.addTest(function() {
   var allHaveMessage = false;
 	illegalCharacterPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 	  var re = new RegExp('illegal');
 	  var includesMessage = false;
-	  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
 	  }
 		
@@ -325,12 +362,11 @@ grader.addTest(function() {
 	var hasAllMessages = false;
 	incorrectPasswords.forEach(function (combo) {
 		setBothPasswords(combo.pw);
-		submit.onclick();
 
 		combo.expected.forEach(function (msg, index) {
 		  var includesMessage = false;
 		  var re = new RegExp(msg);
-		  if (firstStudentMessage.match(re) || secondStudentMessage.match(re)) {
+		  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 		  	includesMessage = true;
 		  }
 		  if (index === 0) {
@@ -352,7 +388,6 @@ grader.addTest(function() {
   var allPass = false;
 	correctPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
-		submit.onclick();
 
 		var noMessage = false;
 	  if (firstStudentMessage === '' && secondStudentMessage === '') {
@@ -376,8 +411,5 @@ grader.addTest(function() {
 grader.runTests(
 	// {ignoreCheckpoints: true}
 );
-
-// if (grader.is_correct) {
-// 	window.dispatchEvent(new CustomEvent('ud-message', {'detail': 'passed'}));
-// }
+setBothPasswords('');
 })(window);

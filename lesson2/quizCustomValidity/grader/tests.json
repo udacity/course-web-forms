@@ -19,7 +19,44 @@
 			}
 		},
 		{
-			"description": "Short passwords will create feedback messages with '16 characters' in them.",
+			"description": "all inputs are inside a form",
+			"definition": {
+				"nodes": "form",
+				"deepChildren": "input",
+				"get": "count",
+				"equals": 3
+			}
+		},
+		{
+			"description": "inputs have type=[\"password\"]",
+			"definition": {
+				"nodes": "input:not(#submit)",
+				"attribute": "type",
+				"equals": "password"
+			}
+		},
+		{
+			"description": "There's an onsubmit handler.",
+			"definition": {
+				"waitForEvent": "ud-onsubmit",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Non-matching passwords get validation msgs with 'match'.",
+			"definition": {
+				"waitForEvent": "ud-matching",
+				"exists": true
+			},
+			"flags": {
+				"noRepeat": true
+			}
+		},
+		{
+			"description": "Short passwords get validation msgs with '16 characters'.",
 			"definition": {
 				"waitForEvent": "ud-short",
 				"exists": true
@@ -29,7 +66,7 @@
 			}
 		},
 		{
-			"description": "Long passwords will create feedback messages with '100 characters' in them.",
+			"description": "Long passwords get validation msgs with '100 characters'.",
 			"definition": {
 				"waitForEvent": "ud-long",
 				"exists": true
@@ -39,7 +76,7 @@
 			}
 		},
 		{
-			"description": "Passwords without symbols will create feedback messages with 'symbol' in them.",
+			"description": "PWs without symbols get validation msgs with 'symbol'.",
 			"definition": {
 				"waitForEvent": "ud-symbol",
 				"exists": true
@@ -49,7 +86,7 @@
 			}
 		},
 		{
-			"description": "Passwords without numbers will create feedback messages with 'number' in them.",
+			"description": "PWs without numbers get validation msgs with 'number'.",
 			"definition": {
 				"waitForEvent": "ud-number",
 				"exists": true
@@ -59,7 +96,7 @@
 			}
 		},
 		{
-			"description": "Passwords without lowercase letters will create feedback messages with 'lowercase' in them.",
+			"description": "PWs without lowercase letters get validation msgs with 'lowercase'.",
 			"definition": {
 				"waitForEvent": "ud-lowercase",
 				"exists": true
@@ -69,7 +106,7 @@
 			}
 		},
 		{
-			"description": "Passwords without uppercase letters will create feedback messages with 'uppercase' in them.",
+			"description": "PWs without uppercase letters get validation msgs with 'uppercase'.",
 			"definition": {
 				"waitForEvent": "ud-uppercase",
 				"exists": true
@@ -79,7 +116,7 @@
 			}
 		},
 		{
-			"description": "Passwords with illegal characters will create feedback messages with 'illegal' in them.",
+			"description": "PWs with illegal characters get validation msgs with 'illegal'.",
 			"definition": {
 				"waitForEvent": "ud-illegal",
 				"exists": true

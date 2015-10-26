@@ -49,7 +49,7 @@ submit.onclick = function () {
    */
   function checkRequirements() {
     if (firstPassword.length < 16) {
-      firstInputIssuesTracker.add("less than 16 characters");
+      firstInputIssuesTracker.add("fewer than 16 characters");
     } else if (firstPassword.length > 100) {
       firstInputIssuesTracker.add("greater than 100 characters");
     }
