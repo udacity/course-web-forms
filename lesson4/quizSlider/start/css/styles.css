@@ -1,8 +1,8 @@
 body {
 	-moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+ 	-webkit-user-select: none;
+ 	-ms-user-select: none;
+ 	user-select: none;
 }
 
 .slider-main {
@@ -17,7 +17,8 @@ body {
 	position: absolute;
 	height: 48px;
 	width: 96px;
-	background: rgba(100,100,100,1)
+	background: rgba(100,100,100,1);
+	will-change: transform;
 }
 
 .markings {

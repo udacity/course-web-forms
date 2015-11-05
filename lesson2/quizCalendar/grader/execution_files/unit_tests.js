@@ -46,7 +46,7 @@ function performSubmission() {
 		// {ignoreCheckpoints: true}
 	);
 
-	result = {
+	var result = {
 	  is_correct: grader.isCorrect,
 	  test_feedback: grader.getFormattedWrongMessages('\n'),
 	  test_comments: grader.getFormattedComments('\n'),

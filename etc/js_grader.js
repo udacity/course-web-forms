@@ -96,7 +96,6 @@ Grader.prototype = {
     this.setCorrect(test);
   },
 
-  // TODO: CHECK ALL OF THIS LOGIC!
   generateSpecificFeedback: function (test) {
     if (!test.isCorrect && test.wrongMessage) {
       this.addSpecificFeedback(test.wrongMessage);

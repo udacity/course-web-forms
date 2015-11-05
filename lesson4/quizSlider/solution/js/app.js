@@ -94,6 +94,7 @@
 		 */
 		toggle.addEventListener('touchstart', function (event) {
 			sliding = true;
+			console.log(event);
 			toggleTracker.addMovement(event.touches[0].pageX);
 		});
 		window.addEventListener('touchmove', function (event) {		
@@ -106,11 +107,16 @@
 			sliding = false;
 		});
 
+		window.addEventListener('touchcancel', function (event) {
+			sliding = false;
+		});
+
 		toggle.addEventListener('mousedown', function (event) {				
 			sliding = true;
 			toggleTracker.addMovement(event.pageX);
 		});
-		window.addEventListener('mousemove', function (event) {				
+
+		window.addEventListener('mousemove', function (event) {	
 			if (sliding) {
 				toggleTracker.addMovement(event.pageX);
 				requestAnimationFrame(slide);
@@ -121,6 +127,9 @@
 		});
 	}
 
+	var sliding = false;
+	attachEventListeners();
+
 	/*
 	Attaches all the event listeners when the page's content is ready.
 	 */
@@ -128,7 +137,7 @@
   	/*
 		Flag to indicate whether the toggle is in the process of sliding.
 		 */
-		var sliding = false;
-		attachEventListeners();
+		// var sliding = false;
+		// attachEventListeners();
   });
 })();

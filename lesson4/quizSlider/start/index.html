@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+
+<!--
+Unfortunately, this quiz will not be graded. If you do it correctly, the slider should respond to
+touch and mouse events smoothly.
+-->
+
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -12,7 +18,7 @@
 		<h3>Slide me</h3>
 		<div class="slider-main">
 			<svg id="line" height="48" width="300">
-			  <line x1="0" y1="24" x2="300" y2="24" style="stroke:rgb(0,0,0);stroke-width:2" />
+				<line x1="0" y1="24" x2="300" y2="24" style="stroke:rgb(0,0,0);stroke-width:2" />
 			</svg>
 			<div id="toggle"><div class="markings">|||</div></div>
 		</div>
@@ -26,17 +32,17 @@
 		// http://stackoverflow.com/questions/16348031/disable-scrolling-when-touch-moving-certain-element
 		window.blockMenuHeaderScroll = false;
 		$(window).on('touchstart', function(e) {
-	    if ($(e.target).closest('.main').length == 1) {
+			if ($(e.target).closest('.main').length == 1) {
 				blockMenuHeaderScroll = true;
-	    }
+			}
 		});
 		$(window).on('touchend', function() {
 			blockMenuHeaderScroll = false;
 		});
 		$(window).on('touchmove', function(e) {
-	    if (blockMenuHeaderScroll) {
+			if (blockMenuHeaderScroll) {
 				e.preventDefault();
-	    }
+			}
 		});
 	</script>
 </body>

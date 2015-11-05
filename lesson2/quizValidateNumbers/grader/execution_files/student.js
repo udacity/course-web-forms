@@ -1,3 +1,5 @@
+// No need to edit this! But feel free to play around :)
+
 (function() {
     var quiz1 = document.getElementById('quiz1');
     var quiz2 = document.getElementById('quiz2');

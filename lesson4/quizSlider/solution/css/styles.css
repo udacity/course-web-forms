@@ -22,15 +22,7 @@ label {
 	height: 48px;
 	width: 96px;
 	background: rgba(100,100,100,1);
-	
-}
-
-.red {
-	background: rgba(255, 144, 144, 1) !important;
-}
-
-.blue {
-	background: rgba(144, 144, 255, 1) !important;
+	will-change: transform;
 }
 
 .markings {
