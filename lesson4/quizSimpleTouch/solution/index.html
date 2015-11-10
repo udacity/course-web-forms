@@ -29,6 +29,7 @@
       user-select: none;
     }
 
+    /* https://developers.google.com/web/fundamentals/design-and-ui/input/touch/active-states?hl=en */
     .touchable {
       background-color: BlueViolet;
     }
@@ -66,11 +67,11 @@
     }
   </style>
 </head>
-<body ontouchstart="">
+<body>
   <div class="main">
       <h3>Responsive Touch UI</h3>
       <span align="justify">
-        8Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
+        9Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
         <button class="touchable" tabindex="1">Button 1</button>
         <button class="touchable" tabindex="2">Button 2</button>
         <button class="touchable" tabindex="3">Button 3</button>
@@ -109,6 +110,9 @@
     window.onload = function() {
       if ( !isMobile.any()) {
         document.querySelector(".main").innerHTML = "<h4>For this demo to work you will need to run it from a mobile device or open Chrome DevTools.</h4>";
+      }
+      if(/iP(hone|ad)/.test(window.navigator.userAgent)) {
+        document.body.addEventListener('touchstart', function() {}, false);
       }
     }
   </script>
