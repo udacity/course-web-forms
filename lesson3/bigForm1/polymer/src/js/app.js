@@ -1,3 +1,7 @@
+/*
+Feeling up for a little challenge? Hook up the logic to animate the progress bar when the billing
+and shipping addresses are different!
+ */
 function getDomNodeArray(selector) {
   var nodes = Array.prototype.slice.apply(document.querySelectorAll(selector));
   if (!nodes) {
@@ -6,6 +10,7 @@ function getDomNodeArray(selector) {
   return nodes;
 }
 
+// scroll animation logic for different billing addresses
 var useDiffBilling = document.querySelector('.use-diff-billing');
 var newBilling = document.querySelector('.new-billing');
 var submit = document.querySelector('.submit');
@@ -72,7 +77,9 @@ function fillInAddress() {
       var val = place.address_components[i][componentForm[addressType]];
 	    fullAddress[addressType] = val;
 	    if (addressType === "postal_code") {
-	    	document.querySelector('gold-zip-input').value = val;
+	    	var zipInput = document.querySelector('gold-zip-input')
+	    	zipInput.value = val;
+	    	zipInput.oninput();
 	    }
     }
   }
@@ -94,49 +101,86 @@ function geolocate() {
       autocomplete.setBounds(circle.getBounds());
     });
   }
-}
-
-// TODO: finish
-
-function incrementProgress(amount) {
-	var progressBar = document.querySelector('paper-progress');
-
-	var newAmount = progressBar.value + amount;
-	if (newAmount > 100) {
-		newAmount = 100;
-	} else if (newAmount < 0) {
-		newAmount = 0;
-	}
-	progressBar.value = newAmount;
 };
 
-var progressAmounts = [
-	{
-		selector: '#bill-name',
-		amount: '16'
+// Set up the logic to change the progress bar
+var progressBar = document.querySelector('paper-progress');
+
+function ProgressTracker (inputs, progressBar) {
+	var self = this;
+	this.progressBar = progressBar;
+	this.inputs = inputs;
+
+	this.inputs.forEach(function (input) {
+		input.element = document.querySelector(input.selector);
+		input.added = false;
+		input.isValid = null;
+
+	  input.element.oninput = function () {
+	  	input.isValid = self.determineStatus(input);
+	  	self.adjustProgress(input);
+	  };
+	});
+};
+
+ProgressTracker.prototype = {
+	determineStatus: function (input) {
+		var isValid = false;
+		
+		if (input.element.value.length > 0) {
+			isValid = true;
+		} else {
+			isValid = false;
+		}
+
+		try {
+			isValid = isValid && input.element.validate();
+		} catch (e) {
+			console.log(e);
+		}
+		return isValid;
 	},
-	{
-		selector: '#bill-address',
-		amount: '16'
-	},
+	adjustProgress: function (input) {
+		var newAmount = this.progressBar.value;
+
+		if (input.added && !input.isValid) {
+			newAmount = newAmount - input.amount;
+			input.added = false;
+		} else if (!input.added && input.isValid) {
+			newAmount = newAmount + input.amount;
+			input.added = true;
+		}
+
+		this.progressBar.value = newAmount;
+	}
+};
+
+// If you're feeling ambitious, you could add the logic to handle changed billing addresses here!
+var inputs = [
 	{
 		selector: '#cc-number',
-		amount: '16'
+		amount: 16
 	},
 	{
 		selector: '#cc-exp',
-		amount: '16'
+		amount: 16
+	},
+	{
+		selector: '#cc-zip',
+		amount: 16
+	},
+	{
+		selector: '#cc-cvc',
+		amount: 16
 	},
 	{
 		selector: '#ship-name',
-		amount: '16'
+		amount: 16
 	},
 	{
 		selector: '#ship-address',
-		amount: '20'
+		amount: 20
 	}
-]
+];
 
-progressAmounts.forEach(function (input) {
-  input.onsubmit
-});
+var progressTracker = new ProgressTracker(inputs, progressBar);

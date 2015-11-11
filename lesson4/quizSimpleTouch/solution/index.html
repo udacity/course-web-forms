@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quiz - Simple Touch</title>
+  <meta name="msapplication-tap-highlight" content="no">
   <style>
     .main {
       max-width: 40em;
@@ -32,13 +33,21 @@
     /* https://developers.google.com/web/fundamentals/design-and-ui/input/touch/active-states?hl=en */
     .touchable {
       background-color: BlueViolet;
+      
+      /* Webkit / Chrome Specific CSS to remove tap 
+      highlight color */
+      -webkit-tap-highlight-color: transparent;
+      
+      /* Firefox Specific CSS to remove button 
+      differences and focus ring */
+      background-image: none;
     }
 
-    button.touchable:hover {
+    .touchable:hover {
       background-color: HotPink;
     }
 
-    button.touchable:focus {
+    .touchable:focus {
       background-color: FireBrick;
       
       /* The outline parameter surpresses the border 
@@ -46,20 +55,8 @@
       outline: 0;
     }
 
-    button.touchable:active {
+    .touchable:active {
       background-color: Aqua;
-    }
-
-    /* Webkit / Chrome Specific CSS to remove tap 
-      highlight color */
-    .touchable {
-      -webkit-tap-highlight-color: transparent;
-    }
-      
-    /* Firefox Specific CSS to remove button 
-      differences and focus ring */
-    .touchable {
-      background-image: none;
     }
 
     .touchable::-moz-focus-inner {
@@ -71,7 +68,7 @@
   <div class="main">
       <h3>Responsive Touch UI</h3>
       <span align="justify">
-        9Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
+        Lorem ipsum dolor sit amet, vestibulum ligula nunc. Molestie mollis quisque mattis adipiscing est sed. Lectus facilisi suscipit venenatis, consequat congue varius justo sed ut netus, faucibus dui. Id vestibulum risus vestibulum eget. Sodales posuere vel, auctor dictum, vestibulum wisi.
         <button class="touchable" tabindex="1">Button 1</button>
         <button class="touchable" tabindex="2">Button 2</button>
         <button class="touchable" tabindex="3">Button 3</button>
@@ -111,7 +108,7 @@
       if ( !isMobile.any()) {
         document.querySelector(".main").innerHTML = "<h4>For this demo to work you will need to run it from a mobile device or open Chrome DevTools.</h4>";
       }
-      if(/iP(hone|ad)/.test(window.navigator.userAgent)) {
+      if (/iP(hone|ad)/.test(window.navigator.userAgent)) {
         document.body.addEventListener('touchstart', function() {}, false);
       }
     }

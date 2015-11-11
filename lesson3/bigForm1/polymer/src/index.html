@@ -26,7 +26,7 @@
 			<paper-toolbar>
 	      <div>Cam's Checkout</div>
 	    </paper-toolbar>
-	    <paper-progress value="0"></paper-progress>
+	    <paper-progress class="transiting" value="0"></paper-progress>
 			<div class="layout vertical main">
 				<form is="iron-form">
 					
@@ -56,9 +56,9 @@
 						<p><em>Note: don't enter any real information!</em></p>
 						<gold-cc-input id="cc-number" label="Card Number" auto-validate card-type="{{cardType}}"></gold-cc-input>
 						<div class="layout horizontal">
-							<gold-zip-input class="sub-cc"></gold-zip-input>
+							<gold-zip-input id="cc-zip" class="sub-cc"></gold-zip-input>
 							<gold-cc-expiration-input id="cc-exp" class="sub-cc"></gold-cc-expiration-input>
-							<gold-cc-cvc-input card-type="[[cardType]]"></gold-cc-cvc-input>
+							<gold-cc-cvc-input id="cc-cvc" card-type="[[cardType]]"></gold-cc-cvc-input>
 						</div>
 						<paper-checkbox class="use-diff-billing">Use a Different Billing Address?</paper-checkbox>
 						<div class="new-billing">
