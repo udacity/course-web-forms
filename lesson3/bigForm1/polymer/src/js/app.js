@@ -118,7 +118,7 @@ function ProgressTracker (inputs, progressBar) {
 
 	  input.element.oninput = function () {
 	  	input.isValid = self.determineStatus(input);
-	  	self.adjustProgress(input);
+	  	self.adjustProgressIfNecessary(input);
 	  };
 	});
 };
@@ -140,7 +140,7 @@ ProgressTracker.prototype = {
 		}
 		return isValid;
 	},
-	adjustProgress: function (input) {
+	adjustProgressIfNecessary: function (input) {
 		var newAmount = this.progressBar.value;
 
 		if (input.added && !input.isValid) {
