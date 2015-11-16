@@ -163,7 +163,7 @@ grader.addTest(function() {
 	correctPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw, pw + 'randomletters');
 
-		var re = new RegExp('match');
+		var re = new RegExp('match', 'i');
 		var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -188,7 +188,7 @@ grader.addTest(function() {
 	shortPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('16');
+	  var re = new RegExp('16', 'i');
 		var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -213,7 +213,7 @@ grader.addTest(function() {
 	longPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('100');
+	  var re = new RegExp('100', 'i');
 	  var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -238,7 +238,7 @@ grader.addTest(function() {
 	symbollessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('symbol');
+	  var re = new RegExp('symbol', 'i');
 	  var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -263,7 +263,7 @@ grader.addTest(function() {
 	numberlessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('number');
+	  var re = new RegExp('number', 'i');
 	  var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -288,7 +288,7 @@ grader.addTest(function() {
 	lowercaselessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('lower');
+	  var re = new RegExp('lower', 'i');
 	  var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -313,7 +313,7 @@ grader.addTest(function() {
 	uppercaselessPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('upper');
+	  var re = new RegExp('upper', 'i');
 	  var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -338,7 +338,7 @@ grader.addTest(function() {
 	illegalCharacterPasswords.forEach(function (pw, index) {
 		setBothPasswords(pw);
 
-	  var re = new RegExp('illegal');
+	  var re = new RegExp('illegal', 'i');
 	  var includesMessage = false;
 	  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 	  	includesMessage = true;
@@ -365,7 +365,7 @@ grader.addTest(function() {
 
 		combo.expected.forEach(function (msg, index) {
 		  var includesMessage = false;
-		  var re = new RegExp(msg);
+		  var re = new RegExp(msg, 'i');
 		  if ((firstStudentMessage && firstStudentMessage.match(re)) || (secondStudentMessage && secondStudentMessage.match(re))) {
 		  	includesMessage = true;
 		  }
