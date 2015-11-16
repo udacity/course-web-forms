@@ -36,17 +36,11 @@ if (functionBody.length > 0) {
 
 firstPasswordInput.setCustomValidity = function (message) {
 	firstStudentMessage = message;
-	if (grader.is_correct) {
-		window.dispatchEvent(new CustomEvent('ud-message', {'detail': 'passed'}));
-	}
 	firstNativesCV.call(this, message);
 };
 
 secondPasswordInput.setCustomValidity = function (message) {
 	secondStudentMessage = message;
-	if (grader.is_correct) {
-		window.dispatchEvent(new CustomEvent('ud-message', {'detail': 'passed'}));
-	}
 	secondNativesCV.call(this, message);
 };
 
