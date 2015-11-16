@@ -36,7 +36,7 @@
 			}
 		},
 		{
-			"description": "There's an onsubmit handler.",
+			"description": "The submit button has an onsubmit handler.",
 			"definition": {
 				"waitForEvent": "ud-onsubmit",
 				"exists": true
