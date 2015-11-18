@@ -2,15 +2,8 @@
 Feeling up for a little challenge? Hook up the logic to animate the progress bar when the billing
 and shipping addresses are different!
  */
-function getDomNodeArray(selector) {
-  var nodes = Array.prototype.slice.apply(document.querySelectorAll(selector));
-  if (!nodes) {
-    nodes = [];
-  }
-  return nodes;
-}
 
-// scroll animation logic for different billing addresses
+// Scroll animation logic for different billing addresses
 var useDiffBilling = document.querySelector('.use-diff-billing');
 var newBilling = document.querySelector('.new-billing');
 var submit = document.querySelector('.submit');
@@ -160,24 +153,19 @@ var inputs = [
 	{
 		selector: '#cc-number',
 		amount: 16
-	},
-	{
+	}, {
 		selector: '#cc-exp',
 		amount: 16
-	},
-	{
+	}, {
 		selector: '#cc-zip',
 		amount: 16
-	},
-	{
+	}, {
 		selector: '#cc-cvc',
 		amount: 16
-	},
-	{
+	}, {
 		selector: '#ship-name',
 		amount: 16
-	},
-	{
+	}, {
 		selector: '#ship-address',
 		amount: 20
 	}

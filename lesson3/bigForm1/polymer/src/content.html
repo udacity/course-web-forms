@@ -1,0 +1,49 @@
+<paper-header-panel mode="seamed">
+	<paper-toolbar>
+    <div>Cam's Checkout</div>
+  </paper-toolbar>
+  <paper-progress class="transiting" value="0"></paper-progress>
+	<div class="layout vertical main">
+		<form is="iron-form">
+			
+			<paper-card heading="Your Order">
+				<div class="layout vertical">
+					<div class="layout horizontal">
+						<div class="flex-2"></div>
+						<div class="flex-3 bold">Item</div>
+						<div class="flex bold"></div>
+						<div class="flex-2 bold">Price</div>
+					</div>
+					<div class="layout horizontal">
+						<div class="flex-2"><img class="responsive" src="../images/NES-Console-Set.png" title="NES Console By Evan-Amos (Own work) [Public domain], via Wikimedia Commons" alt="Classic Video Game Console"></div>
+						<div class="flex-3">Classic Video Game Console</div>
+						<div class="flex">1x</div>
+						<div class="flex-2 bold price">$500.00</div>
+					</div>
+				</div>
+			</paper-card>
+
+			<paper-card heading="Where Do You Want Your Order Sent?">
+				<paper-input id="ship-name" label="Name"></paper-input>
+				<paper-input id="ship-address" label="Address" onFocus="geolocate()"></paper-input>
+			</paper-card>
+				
+			<paper-card heading="How Would You Like to Pay?">
+				<p><em>Note: don't enter any real information!</em></p>
+				<gold-cc-input id="cc-number" label="Card Number" auto-validate card-type="{{cardType}}"></gold-cc-input>
+				<div class="layout horizontal">
+					<gold-zip-input id="cc-zip" class="sub-cc"></gold-zip-input>
+					<gold-cc-expiration-input id="cc-exp" class="sub-cc"></gold-cc-expiration-input>
+					<gold-cc-cvc-input id="cc-cvc" card-type="[[cardType]]"></gold-cc-cvc-input>
+				</div>
+				<paper-checkbox class="use-diff-billing">Use a Different Billing Address?</paper-checkbox>
+				<div class="new-billing">
+					<paper-input id="bill-name" label="Name"></paper-input>
+					<paper-input id="bill-address" label="Address"></paper-input>
+				</div>
+			</paper-card>
+
+			<paper-button raised class="submit">Place Order</paper-button>
+		</form>
+	</div>
+</paper-header-panel>

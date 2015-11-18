@@ -4,75 +4,94 @@
 		<meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <title>Quiz - One Big, Ugly Form - Polymer</title>
-		<script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-		<link rel="import" href="../bower_components/gold-cc-input/gold-cc-input.html">
-		<link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
-		<link rel="import" href="../bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
-		<link rel="import" href="../bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
-		<link rel="import" href="../bower_components/gold-zip-input/gold-zip-input.html">
-		<link rel="import" href="../bower_components/iron-form/iron-form.html">
-		<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-		<link rel="import" href="../bower_components/paper-button/paper-button.html">
-		<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-		<link rel="import" href="../bower_components/paper-input/paper-input.html">
-		<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
-		<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
-		<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
-		<link rel="import" href="../bower_components/paper-card/paper-card.html">
 		<link rel="stylesheet" href="css/styles.css">
+		<script>
+			// Only load Web Component polyfill if necessary and then load content
+			// Thanks to Rob Dodson's talk at Chrome Dev Summit 2015
+			var webComponentsSupported = ('registerElement' in document
+				&& 'import' in document.createElement('link')
+				&& 'content' in document.createElement('template'));
+
+			if (!webComponentsSupported) {
+				var script = document.createElement('script');
+				script.async = true;
+				script.src = '../bower_components/webcomponentsjs/webcomponents-lite.min.js';
+				script.onload = loadPolymerElements;
+				document.head.appendChild(script);
+			} else {
+				loadPolymerElements();
+			};
+
+			function loadPolymerElements() {
+				var link = document.createElement('link');
+				link.rel = 'import';
+				link.href = 'polymer-elements/elements.html'
+				link.onload = loadContent;
+				document.head.appendChild(link);
+			};
+
+			// In an actual app, this would normally be an AJAX request for JSON to be injected into
+			// template app compontents. However, in this case I just hard coded the content.
+			function loadContent() {
+				var req = new XMLHttpRequest();
+				req.open('GET', 'content.html');
+				req.addEventListener('load', function () {
+					// Add Polymer specific classes to the body
+					document.body.classList.add('fullbleed', 'layout', 'vertical');
+					document.body.innerHTML = this.responseText;
+					loadScripts();
+				});
+				req.send();
+			};
+
+			// In an actual app, you'd need much more robust logic to determine when and how specific
+			// scripts are injected into the page.
+			function loadScripts() {
+				var scripts = [
+					{
+						src: 'js/app.js'
+					}, {
+						src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDBdsoKK0wPlfMXjhNEv9y6juA_T2Er0Ek&signed_in=true&libraries=places&callback=initAutocomplete',
+						attrs: ['async', 'defer']
+					}
+				];
+				scripts.forEach(function (s) {
+				  var script = document.createElement('script');
+				  script.src = s.src;
+				  if (s.attrs) {
+					  s.attrs.forEach(function (a) {
+					    script[a] = true;
+					  });
+				  };
+				  document.body.appendChild(script);
+				});
+			};
+		</script>
 	</head>
-	<body class="fullbleed layout vertical">
-		<paper-header-panel mode="seamed">
-			<paper-toolbar>
-	      <div>Cam's Checkout</div>
-	    </paper-toolbar>
-	    <paper-progress class="transiting" value="0"></paper-progress>
-			<div class="layout vertical main">
-				<form is="iron-form">
-					
-					<paper-card heading="Your Order">
-						<div class="layout vertical">
-							<div class="layout horizontal">
-								<div class="flex-2"></div>
-								<div class="flex-3 bold">Item</div>
-								<div class="flex bold"></div>
-								<div class="flex-2 bold">Price</div>
-							</div>
-							<div class="layout horizontal">
-								<div class="flex-2"><img class="responsive" src="../images/NES-Console-Set.png" alt="NES Console By Evan-Amos (Own work) [Public domain], via Wikimedia Commons"></div>
-								<div class="flex-3">Classic Video Game Console</div>
-								<div class="flex">1x</div>
-								<div class="flex-2 bold price">$500.00</div>
-							</div>
-						</div>
-					</paper-card>
+	<body>
+		<!--
+			This skeleton renders immediately but disappears when page content arrives.
+			It's a quick, easy way to let users know that the page has started to load.
+		-->
+		<style>
+			body {
+				margin: 0px;
+			}
+			header {
+			  position: fixed;
+			  display: block;
+			  height: 64px;
+			  min-width: 100%;
+			  font-size: 1.5em;
+			  background: #3f51b5;;
+			  color: #fff;
+			}
 
-					<paper-card heading="Where Do You Want Your Order Sent?">
-						<paper-input id="ship-name" label="Name"></paper-input>
-						<paper-input id="ship-address" label="Address" onFocus="geolocate()"></paper-input>
-					</paper-card>
-						
-					<paper-card heading="How Would You Like to Pay?">
-						<p><em>Note: don't enter any real information!</em></p>
-						<gold-cc-input id="cc-number" label="Card Number" auto-validate card-type="{{cardType}}"></gold-cc-input>
-						<div class="layout horizontal">
-							<gold-zip-input id="cc-zip" class="sub-cc"></gold-zip-input>
-							<gold-cc-expiration-input id="cc-exp" class="sub-cc"></gold-cc-expiration-input>
-							<gold-cc-cvc-input id="cc-cvc" card-type="[[cardType]]"></gold-cc-cvc-input>
-						</div>
-						<paper-checkbox class="use-diff-billing">Use a Different Billing Address?</paper-checkbox>
-						<div class="new-billing">
-							<paper-input id="bill-name" label="Name"></paper-input>
-							<paper-input id="bill-address" label="Address"></paper-input>
-						</div>
-					</paper-card>
-
-					<paper-button raised class="submit">Place Order</paper-button>
-				</form>
-			</div>
-		</paper-header-panel>
-		<script src="js/app.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBdsoKK0wPlfMXjhNEv9y6juA_T2Er0Ek&signed_in=true&libraries=places&callback=initAutocomplete"
-        async defer></script>
+			.main {
+			  background: #fafafa;
+			}
+		</style>
+			<header></header>
+		  <div class="main"></div>
 	</body>
 </html>
