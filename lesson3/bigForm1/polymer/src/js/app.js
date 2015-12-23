@@ -49,7 +49,7 @@ function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
   // location types.
   autocomplete = new google.maps.places.Autocomplete(
-      (document.getElementById('ship-address')),
+      (document.getElementById('ship-address').$.input),
       {types: ['geocode']});
 
   // When the user selects an address from the dropdown, populate the address
