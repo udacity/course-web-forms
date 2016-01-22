@@ -354,7 +354,8 @@ grader.addTest(function() {
 
 grader.addTest(function() {
 	var hasAllMessages = false;
-	incorrectPasswords.forEach(function (combo) {
+	incorrectPasswords.forEach(function (combo, i) {
+		var hasPasswordFeedback = false;
 		setBothPasswords(combo.pw);
 
 		combo.expected.forEach(function (msg, index) {
@@ -364,11 +365,16 @@ grader.addTest(function() {
 		  	includesMessage = true;
 		  }
 		  if (index === 0) {
-		  	hasAllMessages = includesMessage;
+		  	hasPasswordFeedback = includesMessage;
 		  } else {
-		  	hasAllMessages = hasAllMessages && includesMessage;
+		  	hasPasswordFeedback = hasPasswordFeedback && includesMessage;
 		  }
 		});
+		if (i === 0) {
+			hasAllMessages = hasPasswordFeedback;
+		} else {
+			hasAllMessages = hasAllMessages && hasPasswordFeedback;
+		} 
 	});
 	if (hasAllMessages) {
 		window.dispatchEvent(new CustomEvent('ud-incorrect', {'detail': 'passed'}));
