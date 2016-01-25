@@ -3,7 +3,7 @@
 	"code": "I<3validatedpasswords",
 	"tests": [
 		{
-			"description": "first input has required attribute",
+			"description": "First input has required attribute",
 			"definition": {
 				"nodes": "#first",
 				"attribute": "required",
@@ -11,7 +11,7 @@
 			}
 		},
 		{
-			"description": "second input has required attribute",
+			"description": "Second input has required attribute",
 			"definition": {
 				"nodes": "#second",
 				"attribute": "required",
@@ -19,7 +19,7 @@
 			}
 		},
 		{
-			"description": "all inputs are inside a form",
+			"description": "All inputs are inside a form",
 			"definition": {
 				"nodes": "form",
 				"deepChildren": "input",
@@ -28,7 +28,7 @@
 			}
 		},
 		{
-			"description": "inputs have type=[\"password\"]",
+			"description": "Inputs have type=[\"password\"]",
 			"definition": {
 				"nodes": "input:not(#submit)",
 				"attribute": "type",
@@ -126,7 +126,7 @@
 			}
 		},
 		{
-			"description": "Incorrect passwords get useful feedback",
+			"description": "Incorrect passwords get feedback for *every* issue",
 			"definition": {
 				"waitForEvent": "ud-incorrect",
 				"exists": true
