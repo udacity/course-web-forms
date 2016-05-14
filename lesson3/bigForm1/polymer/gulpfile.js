@@ -59,3 +59,23 @@ gulp.task('watch', function () {
 		gulp.start('default', done);
 	}));
 });
+
+/*
+DEVELOPMENT WEBSERVER
+Navigate to localhost:3000/src
+*/
+
+var browserSync = require('browser-sync');
+
+// Files from src are nicer to debug
+var srcFiles = [
+	'src/*',
+	'src/*/*'
+];
+
+gulp.task('serve', function() {
+	browserSync({
+		server: '.',
+	});
+	gulp.watch(srcFiles).on('change', browserSync.reload);
+});
