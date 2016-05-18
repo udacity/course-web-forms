@@ -48,34 +48,40 @@ gulp.task('compress-content', function() {
 
 gulp.task('default', ['compress-index', 'compress-content', 'vulcanize-elems', 'compress-js', 'minify-css']);
 
-var files = [
+var srcFiles = [
 	'src/*',
 	'src/*/*'
 ];
 
 gulp.task('watch', function () {
 	gulp.start('default');
-	watch(files, batch(function (events, done) {
+	watch(srcFiles, batch(function (events, done) {
 		gulp.start('default', done);
 	}));
 });
 
 /*
 DEVELOPMENT WEBSERVER
-Navigate to localhost:3000/src
 */
 
 var browserSync = require('browser-sync');
 
-// Files from src are nicer to debug
-var srcFiles = [
-	'src/*',
-	'src/*/*'
+var destFiles = [
+	'dest/*',
+	'dest/*/*'
 ];
 
 gulp.task('serve', function() {
-	browserSync({
-		server: '.',
-	});
-	gulp.watch(srcFiles).on('change', browserSync.reload);
+
+	var browserSyncOptions = {
+		server: true
+	};
+
+	watch(srcFiles, batch(function (events, done) {
+		gulp.start('default', done);
+	}));
+
+	watch(destFiles).on('change', browserSync.reload);
+
+	browserSync(browserSyncOptions);
 });
