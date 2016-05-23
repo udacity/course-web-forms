@@ -34,7 +34,18 @@ useDiffBilling.addEventListener('change', function (e) {
 // This example displays an address form, using the autocomplete feature
 // of the Google Places API to help users fill in the information.
 // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
-var placeSearch, autocomplete;
+var placeSearch, autocompleteInputs = [
+  // Priority should be greater than 0
+  {
+    // Billing address has priority if filled out
+    selector: '#bill-address',
+    priority: 2
+  }, {
+    selector: '#ship-address',
+    priority: 1
+  }
+];
+
 var componentForm = {
   street_number: 'short_name',
   route: 'long_name',
@@ -46,37 +57,63 @@ var componentForm = {
 var fullAddress = {};
 
 function initAutocomplete() {
-  // Create the autocomplete object, restricting the search to geographical
-  // location types.
-  autocomplete = new google.maps.places.Autocomplete(
-      (document.getElementById('ship-address').$.input),
-      {types: ['geocode']});
+	// Create the autocomplete objects, restricting the search to geographical
+	// location types.
+	autocompleteInputs.forEach(function(element) {
+		element.element = document.querySelector(element.selector);
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
-  autocomplete.addListener('place_changed', fillInAddress);
-}
+		element.googleAutocomplete = new google.maps.places.Autocomplete(
+			(element.element.$.input),
+			{type: ['geocode']}
+		);
+		// When the user selects an address from the dropdown, populate the address
+		// fields in the form.
+		element.googleAutocomplete.addListener('place_changed', fillInAddress);
+		// When the user clears the input
+		element.element.addEventListener('blur', fillInAddress);
+	});
+};
 
+/*
+Determines how the zip field should be filled
+ */
 function fillInAddress() {
-  // Get the place details from the autocomplete object.
-  var place = autocomplete.getPlace();
 
-  // Get each component of the address from the place details
-  // and fill the corresponding field on the form.
-  for (var i = 0; i < place.address_components.length; i++) {
-    var addressType = place.address_components[i].types[0];
+	var priority = 0;
+	var target, googleAutocomplete;
+	var zipInput = document.querySelector('gold-zip-input');
 
-    if (componentForm[addressType]) {
-      var val = place.address_components[i][componentForm[addressType]];
-	    fullAddress[addressType] = val;
-	    if (addressType === "postal_code") {
-	    	var zipInput = document.querySelector('gold-zip-input')
-	    	zipInput.value = val;
-	    	zipInput.oninput();
-	    }
-    }
-  }
-}
+	// Clear value in case all inputs are emptied
+	zipInput.value = '';
+
+	// Find the input with higest priority
+	autocompleteInputs.forEach(function(element) {
+		var value = element.element.$.input.value;
+		// Input gets priority only if there's an address
+		if (element.priority > priority && value) {
+			priority = element.priority;
+			googleAutocomplete = element.googleAutocomplete;
+		}
+	});
+
+	if (googleAutocomplete) {
+		// Get the place details from the autocomplete object.
+		var place = googleAutocomplete.getPlace();
+		// Get each component of the address from the place details
+		// and fill the corresponding field on the form.
+		for (var i = 0; i < place.address_components.length; i++) {
+			var addressType = place.address_components[i].types[0];
+			if (componentForm[addressType]) {
+				var val = place.address_components[i][componentForm[addressType]];
+				fullAddress[addressType] = val;
+				if (addressType === 'postal_code') {
+					zipInput.value = val;
+					zipInput.oninput();
+				}
+			}
+		}
+	}
+};
 
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.

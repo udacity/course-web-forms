@@ -48,14 +48,40 @@ gulp.task('compress-content', function() {
 
 gulp.task('default', ['compress-index', 'compress-content', 'vulcanize-elems', 'compress-js', 'minify-css']);
 
-var files = [
+var srcFiles = [
 	'src/*',
 	'src/*/*'
 ];
 
 gulp.task('watch', function () {
 	gulp.start('default');
-	watch(files, batch(function (events, done) {
+	watch(srcFiles, batch(function (events, done) {
 		gulp.start('default', done);
 	}));
+});
+
+/*
+DEVELOPMENT WEBSERVER
+*/
+
+var browserSync = require('browser-sync');
+
+var destFiles = [
+	'dest/*',
+	'dest/*/*'
+];
+
+gulp.task('serve', function() {
+
+	var browserSyncOptions = {
+		server: true
+	};
+
+	watch(srcFiles, batch(function (events, done) {
+		gulp.start('default', done);
+	}));
+
+	watch(destFiles).on('change', browserSync.reload);
+
+	browserSync(browserSyncOptions);
 });
