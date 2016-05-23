@@ -83,9 +83,6 @@ function fillInAddress() {
 	var target, googleAutocomplete;
 	var zipInput = document.querySelector('gold-zip-input');
 
-	// Clear value in case all inputs are emptied
-	zipInput.value = '';
-
 	// Find the input with higest priority
 	autocompleteInputs.forEach(function(element) {
 		var value = element.element.$.input.value;
