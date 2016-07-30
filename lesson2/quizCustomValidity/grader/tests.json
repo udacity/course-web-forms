@@ -126,7 +126,7 @@
 			}
 		},
 		{
-			"description": "Incorrect passwords get feedback for *every* issue",
+			"description": "Incorrect passwords get feedback for *every* issue at the same time.",
 			"definition": {
 				"waitForEvent": "ud-incorrect",
 				"exists": true
