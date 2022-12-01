@@ -94,7 +94,13 @@ function Model() {
 
   // pulls values from elems of class="model model-*" to create Model's raw info and set up 1-way binding
   getDomNodeArray('.model').forEach(function (elem) {
-    elem.classList.forEach(function (className) {
+    var elClassList = elem.classList,
+        classListCounter = 0,
+        className;
+
+    while(classListCounter < elClassList.length) {
+      className = elClassList.item(classListCounter);
+
       var possiblyMatch = className.match(/model\-/g);
       if (possiblyMatch) {
         // create the Model value
@@ -122,7 +128,9 @@ function Model() {
           self[name].oninput();
         };
       }
-    });
+
+      ++classListCounter;
+    }
   });
 
   self.updateCalculations = function () {
